@@ -2,54 +2,117 @@
 <html lang="ar" dir="rtl">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>مسابقة – نموذج مستقر</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0f172a" />
+    <title>مسابقة – نسخة ملائمة للجوال</title>
     <style>
-      body{margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Noto Sans Arabic', 'Noto Naskh Arabic', 'Segoe UI Emoji', 'Apple Color Emoji', 'Segoe UI Symbol', sans-serif; background: linear-gradient(to bottom, #eef2ff, #fff); color:#111827;}
-      .nav{position:sticky; top:0; background:#ffffffdd; backdrop-filter: blur(6px); border-bottom:1px solid #e5e7eb;}
-      .nav-inner{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 16px; max-width:1200px; margin:0 auto;}
-      .brand{display:flex; align-items:center; gap:8px; font-weight:700;}
-      .brand-badge{width:28px; height:28px; border-radius:12px; background:#4f46e5;}
-      .tab{padding:6px 12px; border-radius:10px; font-size:14px; color:#374151; border:none; background:transparent; cursor:pointer;}
-      .tab-active{background:#111827; color:#fff;}
-      .container{max-width:1100px; margin:0 auto; padding: 24px;}
-      .card{background:#fff; border:1px solid #e5e7eb; border-radius:16px; padding:16px;}
-      .pill{display:inline-block; padding:4px 8px; border-radius:999px; background:#eef2ff; color:#4338ca; border:1px solid #c7d2fe; font-size:12px;}
+      :root{
+        --bg: #0b1020;
+        --card: #0f172a;
+        --muted: #94a3b8;
+        --text: #e5e7eb;
+        --accent: #6d93ff;
+        --accent-2: #22d3ee;
+        --ring: #4f46e5;
+        --ok: #22c55e;
+        --warn: #f59e0b;
+        --radius: 14px;
+        --shadow: 0 6px 24px rgba(0,0,0,.25);
+      }
+      *{box-sizing:border-box}
+      html,body{height:100%}
+      body{margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Noto Sans Arabic', 'Noto Naskh Arabic', 'Segoe UI Emoji', 'Apple Color Emoji', 'Segoe UI Symbol', sans-serif; background:
+        radial-gradient(1200px 500px at 70% -80%, rgba(109,147,255,.25), transparent 60%),
+        radial-gradient(800px 400px at 0% 0%, rgba(34,211,238,.18), transparent 60%),
+        linear-gradient(to bottom, #0b1020, #0b1020 20%, #0d1224 60%, #0b1020);
+        color:var(--text);
+      }
+      .container{max-width:1100px; margin:0 auto; padding: 16px;}
+
+      /* Header */
+      .nav{position:sticky; top:0; z-index:30; background:rgba(11,16,32,.8); backdrop-filter: blur(12px); border-bottom:1px solid rgba(255,255,255,.08)}
+      .nav-inner{display:flex; align-items:center; justify-content:space-between; gap:8px; padding:12px 10px; max-width:1150px; margin:0 auto;}
+      .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px;}
+      .brand-badge{width:28px; height:28px; border-radius:10px; background:linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: var(--shadow);}
+      .logos{display:flex; align-items:center; gap:10px}
+      .logo{display:inline-flex; align-items:center; justify-content:center; width:84px; height:28px; border-radius:999px; background:#0b1224; border:1px solid rgba(255,255,255,.08); padding:2px 8px; opacity:.9}
+      .logo svg{height:18px}
+      .nav-buttons{display:flex; gap:6px; align-items:center}
+      .tab{padding:8px 10px; border-radius:10px; font-size:14px; color:#cbd5e1; border:none; background:transparent; cursor:pointer}
+      .tab-active{background:#111c36; color:#fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,.06)}
+      .cta{padding:9px 12px; border-radius:12px; background:linear-gradient(135deg,#4f46e5,#22d3ee); color:#0b1020; font-weight:700; border:none; cursor:pointer}
+
+      /* Cards / Controls */
       .grid{display:grid; gap:12px;}
       .grid-2{grid-template-columns: 1fr 1fr;}
       .grid-3{grid-template-columns: repeat(3, 1fr);}
       .grid-4{grid-template-columns: repeat(4, 1fr);}
-      @media (max-width:900px){ .grid-2, .grid-3, .grid-4{grid-template-columns: 1fr;} }
-      .btn{padding:8px 16px; border-radius:12px; background:#4f46e5; color:#fff; font-size:14px; border:none; cursor:pointer;}
-      .btn:hover{background:#4338ca;}
-      .btn-outline{padding:8px 16px; border-radius:12px; border:1px solid #4f46e5; color:#4338ca; font-size:14px; background:#fff; cursor:pointer;}
-      .input{width:100%; padding:8px 12px; border:1px solid #e5e7eb; border-radius:12px; font-size:14px;}
-      .textarea{width:100%; height:100px; padding:8px 12px; border:1px solid #e5e7eb; border-radius:12px; font-size:14px;}
-      .footer{margin-top:48px; border-top:1px solid #e5e7eb; background:#ffffffc0;}
-      .footer-inner{max-width:1200px; margin:0 auto; padding:16px; display:flex; align-items:center; gap:12px; justify-content:space-between; color:#6b7280; font-size:14px;}
-      .muted{color:#6b7280; font-size:14px;}
-      .hidden{display:none;}
+      @media (max-width:980px){ .grid-2,.grid-3,.grid-4{grid-template-columns: 1fr;} }
+      .card{background: linear-gradient(180deg,#101a34,#0f172a); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); padding:14px; box-shadow: var(--shadow);}
+      .pill{display:inline-block; padding:4px 8px; border-radius:999px; background:rgba(109,147,255,.12); color:#b9ccff; border:1px solid rgba(109,147,255,.28); font-size:12px; white-space:nowrap}
+      .muted{color:var(--muted); font-size:14px}
+      .input,.textarea,select{width:100%; padding:10px 12px; border:1px solid rgba(255,255,255,.12); border-radius:12px; background:#0b1224; color:var(--text); font-size:15px; outline:none}
+      .input:focus,.textarea:focus,select:focus{box-shadow: 0 0 0 3px rgba(79,70,229,.35)}
+      .textarea{height:100px; resize:vertical}
+      .btn{padding:10px 14px; border-radius:12px; background:#1d2a5b; color:#dbeafe; font-size:14px; border:1px solid rgba(255,255,255,.14); cursor:pointer}
+      .btn:hover{background:#233064}
+      .btn-accent{padding:10px 14px; border-radius:12px; background:#4f46e5; color:white; font-weight:700; border:1px solid rgba(255,255,255,.14); cursor:pointer}
+      .btn-ghost{padding:10px 12px; border-radius:12px; color:#bcd0ff; font-size:14px; border:1px dashed rgba(188,208,255,.25); background:transparent; cursor:pointer}
+      .footer{margin-top:40px; border-top:1px solid rgba(255,255,255,.08); background:rgba(11,16,32,.75);}
+      .footer-inner{max-width:1150px; margin:0 auto; padding:16px; display:flex; align-items:center; gap:12px; justify-content:space-between; color:#9aa6bd; font-size:14px}
+
+      /* Hero */
+      .hero-title{font-size:30px; font-weight:900; line-height:1.25; margin:0 0 6px}
+      .hero-sub{color:#b6c2da; margin:0 0 8px; font-size:15px}
+      .kpis{display:grid; gap:12px; grid-template-columns: repeat(3, 1fr);}
+      @media (max-width:980px){ .kpis{grid-template-columns:1fr} }
+      .stat-title{color:#9fb0d1; font-size:13px}
+      .stat-value{font-weight:900; font-size:22px; color:#f1f5f9}
+
+      /* Tap targets for mobile */
+      button, .logo, .pill{touch-action: manipulation}
+
+      /* Scrollbar (mobile-friendly) */
+      ::-webkit-scrollbar{width:10px;height:10px}
+      ::-webkit-scrollbar-thumb{background:#1a2448;border-radius:10px}
+      ::-webkit-scrollbar-track{background:#0b1020}
     </style>
   </head>
   <body>
-    <div class="nav">
+    <header class="nav">
       <div class="nav-inner">
-        <div class="brand"><span class="brand-badge"></span><span>مسابقة</span></div>
-        <div>
+        <div class="brand" aria-label="علامة مسابقة">
+          <span class="brand-badge"></span><span>مسابقة</span>
+        </div>
+        <div class="logos" aria-label="شعارات داعمة">
+          <!-- Vision 2030 compact placeholder (SVG text to avoid trademarks) -->
+          <span class="logo" title="Vision 2030">
+            <svg viewBox="0 0 160 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <text x="0" y="17" font-family="Segoe UI, Arial" font-size="15" fill="#cbd5e1">Vision 2030</text>
+            </svg>
+          </span>
+          <!-- Talabiya compact placeholder -->
+          <span class="logo" title="مبادرة تلبية">
+            <svg viewBox="0 0 120 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <text x="0" y="17" font-family="Segoe UI, Arial" font-size="15" fill="#cbd5e1">Talabiya</text>
+            </svg>
+          </span>
+        </div>
+        <div class="nav-buttons">
           <button class="tab tab-active" data-tab="landing">الواجهة</button>
           <button class="tab" data-tab="individual">فرد</button>
           <button class="tab" data-tab="entity">جهة</button>
           <button class="tab" data-tab="sponsor">راعٍ</button>
           <button class="tab" data-tab="admin">الإدارة</button>
           <button class="tab" data-tab="investor">المستثمر</button>
+          <button class="cta">ابدأ</button>
         </div>
-        <div><button class="btn">ابدأ التحدي</button></div>
       </div>
-    </div>
+    </header>
 
     <main id="view"></main>
 
-    <div class="footer">
+    <footer class="footer">
       <div class="footer-inner">
         <div>© <span id="y"></span> Musabaqa — جميع الحقوق محفوظة</div>
         <div style="display:flex;gap:16px">
@@ -58,12 +121,20 @@
           <a href="#" class="muted">الدعم</a>
         </div>
       </div>
-    </div>
+    </footer>
 
     <script>
       document.getElementById('y').textContent = new Date().getFullYear();
-      const view = document.getElementById('view');
 
+      // Theme tokens (for future theming)
+      const theme = {
+        primary: "#6d93ff",
+        secondary: "#22d3ee",
+        text: "#e5e7eb",
+        muted: "#94a3b8"
+      };
+
+      const view = document.getElementById('view');
       const state = {
         route: 'landing',
         competitions: [
@@ -78,6 +149,14 @@
       function SAR(n){ return new Intl.NumberFormat('ar-SA',{style:'currency',currency:'SAR'}).format(n); }
       function fmt(n){ return new Intl.NumberFormat('ar-SA').format(n); }
 
+      function Stat(label, value, sub){
+        return `<div class="card"><div class="stat-value">${value}</div><div class="stat-title">${label}</div>${sub?`<div class="muted" style="font-size:12px;margin-top:4px">${sub}</div>`:''}</div>`;
+      }
+      function Pill(txt){ return `<span class="pill">${txt}</span>`; }
+      function AccountCard(key, title, desc){
+        return `<div class="card" data-go="${key}" style="cursor:pointer"><div style="font-weight:700">${title}</div><div class="muted" style="margin-top:4px">${desc}</div></div>`;
+      }
+
       function render(){
         const active = state.competitions.filter(c=> c.status!=='مغلقة').length;
         const participations = state.competitions.reduce((a,c)=> a + c.participants.length, 0);
@@ -88,23 +167,23 @@
 
         const R = {
           landing: `
-            <div class="container">
+            <section class="container">
               <div class="grid grid-2" style="align-items:center">
                 <div>
-                  <h1 style="font-size:34px;font-weight:900;line-height:1.25">مسابقة — حول جمهورك إلى <span style="color:#4f46e5">متفاعلين فعليًا</span></h1>
-                  <p class="muted" style="margin-top:8px">منصة وطنية للمسابقات التوعوية والتسويقية تربط التحفيز بالقياس الذكي للأثر.</p>
-                  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px">
-                    <button class="btn" data-go="individual">ابدأ التحدي (فرد)</button>
-                    <button class="btn-outline" data-go="entity">للجهات الحكومية/غير الربحية</button>
-                    <button class="btn-outline" data-go="sponsor">للرعاة والشركات</button>
-                    <button class="btn" style="background:#111827" data-go="investor">لوحة المستثمر</button>
+                  <h1 class="hero-title">مسابقة — هوية عصرية تربط <span style="color:${theme.primary}">التحدي</span> بـ <span style="color:${theme.secondary}">التحفيز</span></h1>
+                  <p class="hero-sub">منصة وطنية للمسابقات التوعوية والتسويقية تقيس أثر التفاعل رقميًا وتسلّم الجوائز بأنواعها.</p>
+                  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">
+                    <button class="btn-accent" data-go="individual">ابدأ التحدي (فرد)</button>
+                    <button class="btn" data-go="entity">للجهات الحكومية/غير الربحية</button>
+                    <button class="btn" data-go="sponsor">للرعاة والشركات</button>
+                    <button class="btn-ghost" data-go="investor">لوحة المستثمر</button>
                   </div>
-                  <div style="display:flex;gap:8px;margin-top:10px">
-                    <span class="pill">RTL</span><span class="pill">تقارير تفاعلية</span><span class="pill">محفظة رقمية</span><span class="pill">جوائز نقدية/رقمية/عينية</span>
+                  <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+                    ${Pill('RTL')}${Pill('تقارير تفاعلية')}${Pill('محفظة رقمية')}${Pill('جوائز نقدية/رقمية/عينية')}
                   </div>
                 </div>
                 <div class="card">
-                  <div class="grid grid-3">
+                  <div class="kpis">
                     ${Stat('المسابقات النشطة', fmt(active))}
                     ${Stat('مشاركات', fmt(participations))}
                     ${Stat('جوائز مُسلَّمة', fmt(prizesClosed))}
@@ -114,55 +193,57 @@
                   </div>
                 </div>
               </div>
-              <h3 style="font-size:18px;font-weight:700;margin:12px 0 8px">من يخدمهم النظام؟</h3>
+
+              <h3 style="font-size:18px;font-weight:700;margin:14px 0 8px">من يخدمهم النظام؟</h3>
               <div class="grid grid-4">
                 ${AccountCard('individual','الأفراد','مشاركة/إنشاء مسابقات واستلام جوائز')}
                 ${AccountCard('entity','جهات حكومية/غير ربحية','إطلاق مسابقات توعوية وتقارير أثر')}
                 ${AccountCard('sponsor','الشركات/الرعاة','رعاية/إنشاء مسابقات وتحليل ROI')}
                 ${AccountCard('investor','المستثمر','مؤشرات الأداء والنمو المالي')}
               </div>
-              <h3 style="font-size:18px;font-weight:700;margin:12px 0 8px">شركاء وتجارب</h3>
+
+              <h3 style="font-size:18px;font-weight:700;margin:14px 0 8px">شركاء وتجارب</h3>
               <div class="card">
-                <div class="grid grid-4" style="text-align:center;color:#6b7280">
+                <div class="grid grid-4" style="text-align:center;color:#cbd5e1">
                   <div class="card">وزارة البيئة (تجريبي)</div>
                   <div class="card">وزارة التعليم (تجريبي)</div>
                   <div class="card">شركة تموين الغذاء</div>
                   <div class="card">جامعة حائل</div>
                 </div>
               </div>
-            </div>
+            </section>
           `,
           individual: `
-            <div class="container">
+            <section class="container">
               <h2 style="font-size:22px;font-weight:800;margin-bottom:10px">مرحبًا ${state.user.name} 👋</h2>
               <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
-                <span class="pill">المدينة: ${state.user.city}</span>
-                <span class="pill">اهتمامات: ${state.user.interests.join('، ')}</span>
-                <select id="cityFilter" class="input">
+                ${Pill('المدينة: '+state.user.city)}
+                ${Pill('اهتمامات: '+state.user.interests.join('، '))}
+                <select id="cityFilter" class="input" aria-label="فلترة حسب المدينة">
                   <option value="">كل المدن</option><option>الرياض</option><option>جدة</option><option>الدمام</option>
                 </select>
               </div>
               <div class="grid grid-2">
                 ${state.competitions.filter(c=> c.status!=='مغلقة').map(c => `
-                  <div class="card">
-                    <div style="display:flex;align-items:center;justify-content:space-between">
-                      <div style="font-weight:700">${c.title}</div>
-                      <span class="pill">${c.type}</span>
+                  <article class="card">
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+                      <h4 style="margin:0;font-weight:800">${c.title}</h4>
+                      ${Pill(c.type)}
                     </div>
                     <div class="muted" style="margin-top:4px">${c.owner} • ${c.city}</div>
                     <div style="font-size:14px;margin-top:8px">الجائزة: ${SAR(c.prize)} (${c.prizeType}) • عدد الفائزين: ${c.winners}</div>
                     <textarea class="textarea" data-answer="${c.id}" placeholder="اكتب إجابتك بإيجاز"></textarea>
-                    <div style="display:flex;gap:8px;margin-top:8px">
-                      <button class="btn" data-participate="${c.id}">أشارك الآن</button>
-                      <button class="btn-outline">مشاركة المسابقة</button>
+                    <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+                      <button class="btn-accent" data-participate="${c.id}">أشارك الآن</button>
+                      <button class="btn-ghost">مشاركة</button>
                     </div>
-                  </div>
+                  </article>
                 `).join('')}
               </div>
-            </div>
+            </section>
           `,
           entity: `
-            <div class="container">
+            <section class="container">
               <h2 style="font-size:22px;font-weight:800;margin-bottom:10px">لوحة الجهة: وزارة التعليم – إدارة الوعي الرقمي</h2>
               <div class="card">
                 <h3 style="font-size:18px;font-weight:700;margin-bottom:8px">إنشاء مسابقة توعوية</h3>
@@ -174,15 +255,15 @@
                   <input id="e-prize" class="input" type="number" min="0" value="1000" />
                   <select id="e-ptype" class="input"><option>رقمية</option><option>نقدية</option><option>عينية</option></select>
                 </div>
-                <div style="display:flex;gap:8px;margin-top:8px">
-                  <button class="btn" id="e-create">إنشاء المسابقة</button>
-                  <button class="btn-outline">حفظ مسودة</button>
+                <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+                  <button class="btn-accent" id="e-create">إنشاء المسابقة</button>
+                  <button class="btn">حفظ مسودة</button>
                 </div>
               </div>
-            </div>
+            </section>
           `,
           sponsor: `
-            <div class="container">
+            <section class="container">
               <h2 style="font-size:22px;font-weight:800;margin-bottom:10px">لوحة الراعي: ${state.sponsor.org}</h2>
               <div class="grid grid-3">
                 ${Stat('رصيد المحفظة', SAR(state.sponsor.wallet), 'يمكن الإيداع لاحقًا')}
@@ -200,39 +281,39 @@
                     <input id="s-prize" class="input" type="number" value="2000" />
                     <select id="s-ptype" class="input"><option>رقمية</option><option>نقدية</option><option>عينية</option></select>
                   </div>
-                  <div style="margin-top:8px"><button class="btn" id="s-create">إنشاء</button></div>
+                  <div style="margin-top:8px"><button class="btn-accent" id="s-create">إنشاء</button></div>
                 </div>
                 <div class="card">
                   <h3 style="font-size:18px;font-weight:700;margin-bottom:8px">رعاية مسابقة قائمة</h3>
                   <div id="s-open"></div>
                 </div>
               </div>
-            </div>
+            </section>
           `,
           admin: `
-            <div class="container">
+            <section class="container">
               <h2 style="font-size:22px;font-weight:800;margin-bottom:10px">لوحة الإدارة</h2>
               <div class="grid grid-2">
                 ${state.competitions.map(c => `
                   <div class="card">
-                    <div style="display:flex;align-items:center;justify-content:space-between">
-                      <div style="font-weight:700">${c.title}</div>
-                      <span class="pill">${c.status}</span>
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+                      <div style="font-weight:800">${c.title}</div>
+                      ${Pill(c.status)}
                     </div>
                     <div class="muted" style="margin-top:4px">${c.owner} • ${c.type} • ${c.city}</div>
                     <div style="font-size:14px;margin-top:8px">مشاركون: ${c.participants.length} • الجائزة: ${SAR(c.prize)} • فائزون: ${c.winners}</div>
-                    <div style="display:flex;gap:8px;margin-top:8px">
+                    <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
                       ${c.status==='مسودة' ? `<button class="btn" data-approve="${c.id}">اعتماد</button>` : ''}
-                      ${c.status!=='مغلقة' ? `<button class="btn-outline" data-close="${c.id}">إغلاق</button>` : ''}
-                      <button class="btn" style="background:#4338ca" data-pick="${c.id}">فرز الفائزين</button>
+                      ${c.status!=='مغلقة' ? `<button class="btn" data-close="${c.id}">إغلاق</button>` : ''}
+                      <button class="btn-accent" data-pick="${c.id}">فرز الفائزين</button>
                     </div>
                   </div>
                 `).join('')}
               </div>
-            </div>
+            </section>
           `,
           investor: `
-            <div class="container">
+            <section class="container">
               <h2 style="font-size:22px;font-weight:800;margin-bottom:10px">لوحة المستثمر</h2>
               <div class="grid grid-3">
                 ${Stat('مستخدمون', fmt(users), 'نمو شهري 12%')}
@@ -247,28 +328,29 @@
                 </div>
                 <div class="muted" style="margin-top:8px">* هذه البيانات محاكاة للعرض فقط — يمكن ربطها بمصدر بيانات حقيقي لاحقًا.</div>
               </div>
-            </div>
+            </section>
           `
         };
 
         view.innerHTML = R[state.route];
 
-        // Wire basic interactions
-        document.querySelectorAll('[data-go]').forEach(btn => btn.addEventListener('click', e => { routeTo(e.target.getAttribute('data-go')); }));
+        // Wire interactions
+        document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', e => routeTo(e.target.getAttribute('data-go'))));
         if(state.route === 'individual'){
           document.querySelectorAll('[data-participate]').forEach(btn => btn.addEventListener('click', e => {
             const cid = e.target.getAttribute('data-participate');
             const ta = document.querySelector(`[data-answer="${cid}"]`);
-            const answer = ta.value.trim();
+            const answer = (ta && ta.value || '').trim();
             if(!answer){ alert('فضلاً اكتب مشاركتك قبل الإرسال'); return; }
             const c = state.competitions.find(x=> x.id===cid);
             c.participants.push({ user: state.user.name, city: state.user.city, answer });
-            ta.value = '';
+            if(ta) ta.value = '';
             alert('تم إرسال مشاركتك بنجاح ✅');
           }));
         }
         if(state.route === 'entity'){
-          document.getElementById('e-create').addEventListener('click', () => {
+          const create = document.getElementById('e-create');
+          if(create) create.addEventListener('click', () => {
             const entry = {
               id: 'c'+Date.now(),
               title: val('e-title') || 'مسابقة بدون عنوان',
@@ -287,7 +369,8 @@
           });
         }
         if(state.route === 'sponsor'){
-          document.getElementById('s-create').addEventListener('click', () => {
+          const create = document.getElementById('s-create');
+          if(create) create.addEventListener('click', () => {
             const entry = {
               id: 'c'+Date.now(),
               title: val('s-title'),
@@ -307,25 +390,27 @@
           // render open comps for quick fund
           const open = state.competitions.filter(c=> c.status==='مفتوحة');
           const holder = document.getElementById('s-open');
-          holder.innerHTML = open.map(c => `
-            <div style="display:flex;align-items:center;justify-content:space-between;border:1px solid #e5e7eb;border-radius:12px;padding:12px;margin-bottom:8px">
-              <div><div style="font-weight:700">${c.title}</div><div class="muted">${c.owner} • ${c.city}</div></div>
-              <div style="display:flex;gap:8px;align-items:center">
-                <input class="input" style="width:110px" type="number" min="100" value="1000" data-amt="${c.id}" />
-                <button class="btn" data-fund="${c.id}">تمويل</button>
-              </div>
-            </div>`).join('');
-          holder.querySelectorAll('[data-fund]').forEach(btn => btn.addEventListener('click', e => {
-            const cid = e.target.getAttribute('data-fund');
-            const inp = holder.querySelector(`[data-amt="${cid}"]`);
-            const amt = Number(inp.value)||0;
-            if(amt<=0) return;
-            const c = state.competitions.find(x=> x.id===cid);
-            c.prize += amt;
-            state.sponsor.wallet = Math.max(0, state.sponsor.wallet - amt);
-            alert('تم التمويل وإضافة القيمة إلى الجائزة ✅');
-            routeTo('sponsor');
-          }));
+          if(holder){
+            holder.innerHTML = open.map(c => `
+              <div style="display:flex;align-items:center;justify-content:space-between;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:12px;margin-bottom:8px;background:#0b1224">
+                <div><div style="font-weight:800">${c.title}</div><div class="muted">${c.owner} • ${c.city}</div></div>
+                <div style="display:flex;gap:8px;align-items:center">
+                  <input class="input" style="width:110px" type="number" min="100" value="1000" data-amt="${c.id}" />
+                  <button class="btn-accent" data-fund="${c.id}">تمويل</button>
+                </div>
+              </div>`).join('');
+            holder.querySelectorAll('[data-fund]').forEach(btn => btn.addEventListener('click', e => {
+              const cid = e.target.getAttribute('data-fund');
+              const inp = holder.querySelector(`[data-amt="${cid}"]`);
+              const amt = Number(inp && inp.value || 0);
+              if(amt<=0) return;
+              const c = state.competitions.find(x=> x.id===cid);
+              c.prize += amt;
+              state.sponsor.wallet = Math.max(0, state.sponsor.wallet - amt);
+              alert('تم التمويل وإضافة القيمة إلى الجائزة ✅');
+              routeTo('sponsor');
+            }));
+          }
         }
         if(state.route === 'admin'){
           document.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', e => {
@@ -344,12 +429,6 @@
         }
       }
 
-      function Stat(label, value, sub){
-        return `<div class="card"><div style="font-weight:800;font-size:22px">${value}</div><div class="muted">${label}</div>${sub?`<div class="muted" style="font-size:12px;margin-top:4px">${sub}</div>`:''}</div>`;
-      }
-      function AccountCard(key, title, desc){
-        return `<div class="card" data-go="${key}" style="cursor:pointer"><div style="font-weight:700">${title}</div><div class="muted" style="margin-top:4px">${desc}</div></div>`;
-      }
       function val(id){ const el = document.getElementById(id); return el?el.value:''; }
       function routeTo(tab){
         state.route = tab;
@@ -357,6 +436,7 @@
         const btn = document.querySelector(`.tab[data-tab="${tab}"]`);
         if(btn) btn.classList.add('tab-active');
         render();
+        window.scrollTo({top:0, behavior:'smooth'});
       }
       function avgPrize(){
         const open = state.competitions.filter(c=> c.status==='مفتوحة');
