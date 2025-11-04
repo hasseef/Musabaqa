@@ -1,0 +1,532 @@
+import React, { useMemo, useState } from "react";
+
+// -------------------------------------------------------------
+// MUSABAQA – Single-file Interactive Prototype
+// Landing + Individual + Gov/Nonprofit + Sponsor + Admin + Investor
+// -------------------------------------------------------------
+// Notes:
+// - Pure React with Tailwind classes for quick prototyping.
+// - All data is in-memory; refresh resets the state.
+// - Purpose: demo flows for partners/investors & realistic UX feel.
+// -------------------------------------------------------------
+
+// Helpers
+const currency = (n) => new Intl.NumberFormat("ar-SA", { style: "currency", currency: "SAR" }).format(n);
+const fmt = (n) => new Intl.NumberFormat("ar-SA").format(n);
+
+// Seed competitions & users
+const seedCompetitions = [
+  {
+    id: "c1",
+    title: "التوعية بالأمن الرقمي",
+    type: "توعوية",
+    ownerType: "gov",
+    ownerName: "وزارة التعليم",
+    city: "الرياض",
+    prizeSAR: 1000,
+    prizeType: "رقمية",
+    status: "مفتوحة",
+    winnersCount: 3,
+    participants: [],
+    createdAt: Date.now() - 1000 * 60 * 60 * 24 * 6,
+  },
+  {
+    id: "c2",
+    title: "تحدي شعار المنتج الجديد",
+    type: "تسويقية",
+    ownerType: "sponsor",
+    ownerName: "شركة تموين الغذاء",
+    city: "جدة",
+    prizeSAR: 5000,
+    prizeType: "عينية",
+    status: "مفتوحة",
+    winnersCount: 1,
+    participants: [],
+    createdAt: Date.now() - 1000 * 60 * 60 * 24 * 2,
+  },
+  {
+    id: "c3",
+    title: "أسبوع البيئة – فكرة مبتكرة لتقليل الهدر",
+    type: "توعوية",
+    ownerType: "gov",
+    ownerName: "وزارة البيئة",
+    city: "الدمام",
+    prizeSAR: 3000,
+    prizeType: "نقدية",
+    status: "مغلقة",
+    winnersCount: 2,
+    participants: [
+      { user: "سارة" , city: "الرياض", answer: "تطبيق ذكي لمشاركة الفائض" },
+      { user: "خالد" , city: "الدمام", answer: "حاويات ذكية للفرز" }
+    ],
+    createdAt: Date.now() - 1000 * 60 * 60 * 24 * 10,
+  }
+];
+
+const seedUsers = {
+  individual: { name: "فهد", city: "الرياض", interests: ["الثقافة","التقنية","الرياضة"] },
+  entity: { name: "إدارة الوعي الرقمي", org: "وزارة التعليم" },
+  sponsor: { name: "قسم التسويق", org: "شركة تموين الغذاء", wallet: 25000 },
+  admin: { name: "مدير النظام" },
+  investor: { name: "مستثمر تجريبي" }
+};
+
+// UI primitives
+const Pill = ({ children }) => (
+  <span className="px-2 py-1 text-xs rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">{children}</span>
+);
+
+const Card = ({ children, className = "" }) => (
+  <div className={`bg-white rounded-2xl shadow-sm border border-gray-100 p-5 ${className}`}>{children}</div>
+);
+
+const Stat = ({ label, value, sub }) => (
+  <Card>
+    <div className="text-2xl font-bold">{value}</div>
+    <div className="text-gray-500 text-sm">{label}</div>
+    {sub && <div className="text-gray-400 text-xs mt-1">{sub}</div>}
+  </Card>
+);
+
+const SectionTitle = ({ children, action }) => (
+  <div className="flex items-center justify-between mb-3">
+    <h3 className="text-lg font-semibold">{children}</h3>
+    {action}
+  </div>
+);
+
+// Landing
+function Landing({ kpis, onSelectAccount }) {
+  return (
+    <div className="max-w-6xl mx-auto p-6">
+      {/* Hero */}
+      <div className="grid md:grid-cols-2 gap-6 items-center">
+        <div>
+          <h1 className="text-3xl md:text-4xl font-extrabold leading-snug">
+            مسابقة — حول جمهورك إلى <span className="text-indigo-600">متفاعلين فعليًا</span>
+          </h1>
+          <p className="text-gray-600 mt-3">
+            منصة وطنية للمسابقات التوعوية والتسويقية تربط التحفيز بالقياس الذكي للأثر.
+          </p>
+          <div className="flex flex-wrap gap-2 mt-4">
+            <button className="btn" onClick={() => onSelectAccount("individual")}>ابدأ التحدي (فرد)</button>
+            <button className="btn-outline" onClick={() => onSelectAccount("entity")}>للجهات الحكومية/غير الربحية</button>
+            <button className="btn-outline" onClick={() => onSelectAccount("sponsor")}>للرعاة والشركات</button>
+            <button className="btn-ghost" onClick={() => onSelectAccount("investor")}>
+              لوحة المستثمر
+            </button>
+          </div>
+          <div className="flex gap-2 mt-4">
+            <Pill>RTL</Pill>
+            <Pill>تقارير تفاعلية</Pill>
+            <Pill>محفظة رقمية</Pill>
+            <Pill>جوائز نقدية/رقمية/عينية</Pill>
+          </div>
+        </div>
+        <Card>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            <Stat label="المسابقات النشطة" value={fmt(kpis.active)} />
+            <Stat label="مشاركات" value={fmt(kpis.participations)} />
+            <Stat label="جوائز مُسلَّمة" value={fmt(kpis.prizes)} />
+            <Stat label="رعاة نشطون" value={fmt(kpis.sponsors)} />
+            <Stat label="قيمة الجوائز" value={currency(kpis.prizeValue)} />
+            <Stat label="المستخدمون" value={fmt(kpis.users)} />
+          </div>
+        </Card>
+      </div>
+
+      {/* Accounts strip */}
+      <SectionTitle>من يخدمهم النظام؟</SectionTitle>
+      <div className="grid md:grid-cols-5 gap-3">
+        {[
+          {k:"individual",t:"الأفراد",d:"مشاركة/إنشاء مسابقات واستلام جوائز"},
+          {k:"entity",t:"جهات حكومية/غير ربحية",d:"إطلاق مسابقات توعوية وتقارير أثر"},
+          {k:"sponsor",t:"الشركات/الرعاة",d:"رعاية/إنشاء مسابقات وتحليل ROI"},
+          {k:"admin",t:"إدارة المنصة",d:"اعتماد المحتوى، دعم، محافظ"},
+          {k:"investor",t:"المستثمر",d:"مؤشرات الأداء والنمو المالي"}
+        ].map((a)=> (
+          <Card key={a.k} className="cursor-pointer hover:shadow-md" onClick={()=>onSelectAccount(a.k)}>
+            <div className="font-semibold">{a.t}</div>
+            <div className="text-sm text-gray-500 mt-1">{a.d}</div>
+          </Card>
+        ))}
+      </div>
+
+      {/* Logos */}
+      <SectionTitle>شركاء وتجارب</SectionTitle>
+      <Card>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-gray-500">
+          <div className="p-3 border rounded-xl">وزارة البيئة (تجريبي)</div>
+          <div className="p-3 border rounded-xl">وزارة التعليم (تجريبي)</div>
+          <div className="p-3 border rounded-xl">شركة تموين الغذاء</div>
+          <div className="p-3 border rounded-xl">جامعة حائل</div>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+// Individual account
+function Individual({ user, competitions, onParticipate }) {
+  const [filter, setFilter] = useState("");
+  const list = useMemo(()=> competitions.filter(c=> c.status!=="مغلقة" && (filter? c.city===filter : true)), [competitions, filter]);
+  const [answer, setAnswer] = useState("");
+
+  return (
+    <div className="max-w-5xl mx-auto p-6">
+      <h2 className="text-2xl font-bold mb-4">مرحبًا {user.name} 👋</h2>
+      <div className="flex flex-wrap gap-2 mb-4 items-center">
+        <Pill>المدينة: {user.city}</Pill>
+        <Pill>اهتمامات: {user.interests.join("، ")}</Pill>
+        <select className="input" value={filter} onChange={(e)=>setFilter(e.target.value)}>
+          <option value="">كل المدن</option>
+          <option>الرياض</option>
+          <option>جدة</option>
+          <option>الدمام</option>
+        </select>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-4">
+        {list.map(c => (
+          <Card key={c.id}>
+            <div className="flex items-center justify-between">
+              <div className="font-semibold">{c.title}</div>
+              <Pill>{c.type}</Pill>
+            </div>
+            <div className="text-sm text-gray-500 mt-1">{c.ownerName} • {c.city}</div>
+            <div className="text-sm mt-2">الجائزة: {currency(c.prizeSAR)} ({c.prizeType}) • عدد الفائزين: {c.winnersCount}</div>
+            <textarea className="textarea mt-3" placeholder="اكتب إجابتك/مشاركتك بإيجاز" value={answer} onChange={(e)=>setAnswer(e.target.value)} />
+            <div className="flex gap-2 mt-2">
+              <button className="btn" onClick={()=>{onParticipate(c.id, user.name, user.city, answer); setAnswer("");}}>أشارك الآن</button>
+              <button className="btn-ghost">مشاركة المسابقة</button>
+            </div>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Entity (Gov/Nonprofit)
+function Entity({ entityName, onCreate }) {
+  const [form, setForm] = useState({ title:"", type:"توعوية", city:"الرياض", prizeSAR:1000, prizeType:"رقمية", winnersCount:1 });
+  return (
+    <div className="max-w-4xl mx-auto p-6">
+      <h2 className="text-2xl font-bold mb-4">لوحة الجهة: {entityName}</h2>
+      <Card>
+        <SectionTitle>إنشاء مسابقة توعوية</SectionTitle>
+        <div className="grid md:grid-cols-2 gap-3">
+          <input className="input" placeholder="عنوان المسابقة" value={form.title} onChange={(e)=>setForm({...form, title:e.target.value})} />
+          <select className="input" value={form.type} onChange={(e)=>setForm({...form, type:e.target.value})}>
+            <option>توعوية</option>
+            <option>ثقافية</option>
+            <option>تسويقية</option>
+          </select>
+          <select className="input" value={form.city} onChange={(e)=>setForm({...form, city:e.target.value})}>
+            <option>الرياض</option>
+            <option>جدة</option>
+            <option>الدمام</option>
+          </select>
+          <input className="input" type="number" min={1} placeholder="عدد الفائزين" value={form.winnersCount} onChange={(e)=>setForm({...form, winnersCount: Number(e.target.value)})} />
+          <input className="input" type="number" min={0} placeholder="قيمة الجائزة (ريال)" value={form.prizeSAR} onChange={(e)=>setForm({...form, prizeSAR: Number(e.target.value)})} />
+          <select className="input" value={form.prizeType} onChange={(e)=>setForm({...form, prizeType:e.target.value})}>
+            <option>رقمية</option>
+            <option>نقدية</option>
+            <option>عينية</option>
+          </select>
+        </div>
+        <div className="flex gap-2 mt-3">
+          <button className="btn" onClick={()=> onCreate(form)}>إنشاء المسابقة</button>
+          <button className="btn-ghost">حفظ مسودة</button>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+// Sponsor
+function Sponsor({ sponsor, onCreate, onFund, competitions }) {
+  const [form, setForm] = useState({ title:"حملة ترويجية جديدة", type:"تسويقية", city:"الرياض", prizeSAR:2000, prizeType:"رقمية", winnersCount:1 });
+  const open = competitions.filter(c=> c.status === "مفتوحة");
+  const [fundAmount, setFundAmount] = useState(1000);
+
+  return (
+    <div className="max-w-5xl mx-auto p-6">
+      <h2 className="text-2xl font-bold mb-4">لوحة الراعي: {sponsor.org}</h2>
+      <div className="grid md:grid-cols-3 gap-4">
+        <Stat label="رصيد المحفظة" value={currency(sponsor.wallet)} sub="يمكن الإيداع لاحقًا" />
+        <Stat label="حملات مفتوحة للرعاية" value={open.length} />
+        <Stat label="متوسط قيمة الجوائز" value={currency(Math.round(open.reduce((a,c)=>a+c.prizeSAR,0)/(open.length||1)))} />
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-4 mt-4">
+        <Card>
+          <SectionTitle>إنشاء مسابقة تسويقية</SectionTitle>
+          <div className="grid grid-cols-2 gap-3">
+            <input className="input col-span-2" value={form.title} onChange={(e)=>setForm({...form, title:e.target.value})} />
+            <select className="input" value={form.type} onChange={(e)=>setForm({...form, type:e.target.value})}>
+              <option>تسويقية</option>
+              <option>ثقافية</option>
+            </select>
+            <select className="input" value={form.city} onChange={(e)=>setForm({...form, city:e.target.value})}>
+              <option>الرياض</option>
+              <option>جدة</option>
+              <option>الدمام</option>
+            </select>
+            <input className="input" type="number" value={form.winnersCount} onChange={(e)=>setForm({...form, winnersCount: Number(e.target.value)})} />
+            <input className="input" type="number" value={form.prizeSAR} onChange={(e)=>setForm({...form, prizeSAR: Number(e.target.value)})} />
+            <select className="input" value={form.prizeType} onChange={(e)=>setForm({...form, prizeType:e.target.value})}>
+              <option>رقمية</option>
+              <option>نقدية</option>
+              <option>عينية</option>
+            </select>
+          </div>
+          <div className="mt-3"><button className="btn" onClick={()=> onCreate(form, sponsor.org)}>إنشاء</button></div>
+        </Card>
+
+        <Card>
+          <SectionTitle>رعاية مسابقة قائمة</SectionTitle>
+          <div className="space-y-3">
+            {open.map(c=> (
+              <div key={c.id} className="p-3 border rounded-xl flex items-center justify-between">
+                <div>
+                  <div className="font-semibold">{c.title}</div>
+                  <div className="text-xs text-gray-500">{c.ownerName} • {c.city}</div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <input className="input w-28" type="number" min={100} value={fundAmount} onChange={(e)=>setFundAmount(Number(e.target.value))} />
+                  <button className="btn" onClick={()=> onFund(c.id, fundAmount)}>تمويل</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </div>
+    </div>
+  );
+}
+
+// Admin
+function Admin({ competitions, onApprove, onClose, onPickWinners }) {
+  return (
+    <div className="max-w-6xl mx-auto p-6">
+      <h2 className="text-2xl font-bold mb-4">لوحة الإدارة</h2>
+      <div className="grid md:grid-cols-2 gap-4">
+        {competitions.map(c => (
+          <Card key={c.id}>
+            <div className="flex items-center justify-between">
+              <div className="font-semibold">{c.title}</div>
+              <Pill>{c.status}</Pill>
+            </div>
+            <div className="text-sm text-gray-500 mt-1">{c.ownerName} • {c.type} • {c.city}</div>
+            <div className="text-sm mt-2">مشاركون: {c.participants.length} • الجائزة: {currency(c.prizeSAR)} • فائزون: {c.winnersCount}</div>
+            <div className="flex gap-2 mt-3">
+              {c.status === "مسودة" && <button className="btn" onClick={()=> onApprove(c.id)}>اعتماد</button>}
+              {c.status !== "مغلقة" && <button className="btn-outline" onClick={()=> onClose(c.id)}>إغلاق</button>}
+              <button className="btn-ghost" onClick={()=> onPickWinners(c.id)}>فرز الفائزين</button>
+            </div>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Investor
+function Investor({ competitions, totalUsers, revenue, sponsorsCount }) {
+  const totalPrizes = competitions.reduce((a,c)=> a + c.prizeSAR, 0);
+  const active = competitions.filter(c=> c.status!=="مغلقة");
+  const monthlyGrowth = 12; // mock %
+  const ar = (n)=> `${n}%`;
+
+  return (
+    <div className="max-w-5xl mx-auto p-6">
+      <h2 className="text-2xl font-bold mb-4">لوحة المستثمر</h2>
+      <div className="grid md:grid-cols-3 gap-4">
+        <Stat label="مستخدمون" value={fmt(totalUsers)} sub={"نمو شهري " + ar(monthlyGrowth)} />
+        <Stat label="إيرادات شهرية" value={currency(revenue)} sub="تراكمي تجريبي" />
+        <Stat label="رعاة نشطون" value={fmt(sponsorsCount)} />
+      </div>
+      <Card className="mt-4">
+        <SectionTitle>نظرة عامة</SectionTitle>
+        <div className="grid md:grid-cols-2 gap-4">
+          <Stat label="مسابقات نشطة" value={active.length} />
+          <Stat label="قيمة الجوائز الإجمالية" value={currency(totalPrizes)} />
+        </div>
+        <div className="text-sm text-gray-600 mt-3">
+          * هذه البيانات محاكاة لغرض العرض فقط — يمكن ربطها بمصدر بيانات حقيقي لاحقًا.
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+export default function App() {
+  const [route, setRoute] = useState("landing");
+  const [competitions, setCompetitions] = useState(seedCompetitions);
+  const [users, setUsers] = useState(seedUsers);
+
+  // KPIs
+  const kpis = useMemo(()=>({
+    active: competitions.filter(c=>c.status!=="مغلقة").length,
+    participations: competitions.reduce((a,c)=> a + c.participants.length, 0),
+    prizes: competitions.filter(c=>c.status==="مغلقة").reduce((a,c)=> a + c.winnersCount, 0),
+    sponsors: 7,
+    prizeValue: competitions.reduce((a,c)=> a + c.prizeSAR, 0),
+    users: 58000
+  }), [competitions]);
+
+  // Actions
+  const participate = (cid, user, city, answer) => {
+    if(!answer) return alert("فضلاً اكتب مشاركتك قبل الإرسال");
+    setCompetitions(prev => prev.map(c => c.id===cid ? { ...c, participants: [...c.participants, { user, city, answer }] } : c));
+    alert("تم إرسال مشاركتك بنجاح ✅");
+  };
+
+  const createByEntity = (form) => {
+    const id = `c${Date.now()}`;
+    const entry = {
+      id,
+      title: form.title || "مسابقة بدون عنوان",
+      type: form.type,
+      ownerType: "gov",
+      ownerName: users.entity.org,
+      city: form.city,
+      prizeSAR: form.prizeSAR,
+      prizeType: form.prizeType,
+      status: "مفتوحة",
+      winnersCount: form.winnersCount,
+      participants: [],
+      createdAt: Date.now()
+    };
+    setCompetitions([entry, ...competitions]);
+    alert("تم إنشاء المسابقة ونشرها ✅");
+  };
+
+  const sponsorCreate = (form, org) => {
+    const id = `c${Date.now()}`;
+    const entry = {
+      id,
+      title: form.title,
+      type: form.type,
+      ownerType: "sponsor",
+      ownerName: org,
+      city: form.city,
+      prizeSAR: form.prizeSAR,
+      prizeType: form.prizeType,
+      status: "مفتوحة",
+      winnersCount: form.winnersCount,
+      participants: [],
+      createdAt: Date.now()
+    };
+    setCompetitions([entry, ...competitions]);
+    alert("تم إنشاء المسابقة التسويقية ✅");
+  };
+
+  const sponsorFund = (cid, amount) => {
+    if(amount <= 0) return;
+    setUsers(u => ({...u, sponsor: {...u.sponsor, wallet: Math.max(0, u.sponsor.wallet - amount)}}));
+    setCompetitions(prev => prev.map(c => c.id===cid ? { ...c, prizeSAR: c.prizeSAR + amount } : c));
+    alert("تم التمويل وإضافة القيمة إلى الجائزة ✅");
+  };
+
+  const approve = (cid) => {
+    setCompetitions(prev => prev.map(c => c.id===cid ? { ...c, status: "مفتوحة" } : c));
+  };
+
+  const closeComp = (cid) => {
+    setCompetitions(prev => prev.map(c => c.id===cid ? { ...c, status: "مغلقة" } : c));
+  };
+
+  const pickWinners = (cid) => {
+    setCompetitions(prev => prev.map(c => {
+      if(c.id!==cid) return c;
+      const shuffled = [...c.participants].sort(()=> Math.random()-0.5);
+      const winners = shuffled.slice(0, c.winnersCount);
+      alert(`تم اختيار ${winners.length} فائز/ة:\n` + winners.map(w=>`• ${w.user} (${w.city})`).join("\n"));
+      return c;
+    }));
+  };
+
+  // Layout
+  return (
+    <div dir="rtl" className="min-h-screen bg-gradient-to-b from-indigo-50 to-white">
+      {/* Top Nav */}
+      <div className="sticky top-0 z-10 backdrop-blur bg-white/70 border-b">
+        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center gap-3 justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-2xl bg-indigo-600" />
+            <span className="font-bold">مسابقة</span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <button className={`tab ${route==='landing'?'tab-active':''}`} onClick={()=>setRoute("landing")}>الواجهة</button>
+            <button className={`tab ${route==='individual'?'tab-active':''}`} onClick={()=>setRoute("individual")}>فرد</button>
+            <button className={`tab ${route==='entity'?'tab-active':''}`} onClick={()=>setRoute("entity")}>جهة</button>
+            <button className={`tab ${route==='sponsor'?'tab-active':''}`} onClick={()=>setRoute("sponsor")}>راعٍ</button>
+            <button className={`tab ${route==='admin'?'tab-active':''}`} onClick={()=>setRoute("admin")}>الإدارة</button>
+            <button className={`tab ${route==='investor'?'tab-active':''}`} onClick={()=>setRoute("investor")}>المستثمر</button>
+          </div>
+          <div>
+            <button className="btn">ابدأ التحدي</button>
+          </div>
+        </div>
+      </div>
+
+      {/* Routes */}
+      {route === "landing" && <Landing kpis={kpis} onSelectAccount={setRoute} />}
+      {route === "individual" && (
+        <Individual user={users.individual} competitions={competitions} onParticipate={participate} />
+      )}
+      {route === "entity" && (
+        <Entity entityName={`${users.entity.org} – ${users.entity.name}`} onCreate={createByEntity} />
+      )}
+      {route === "sponsor" && (
+        <Sponsor sponsor={users.sponsor} competitions={competitions} onCreate={sponsorCreate} onFund={sponsorFund} />
+      )}
+      {route === "admin" && (
+        <Admin competitions={competitions} onApprove={approve} onClose={closeComp} onPickWinners={pickWinners} />
+      )}
+      {route === "investor" && (
+        <Investor competitions={competitions} totalUsers={kpis.users} revenue={185000} sponsorsCount={kpis.sponsors} />
+      )}
+
+      {/* Footer */}
+      <div className="mt-12 border-t bg-white/70">
+        <div className="max-w-7xl mx-auto px-4 py-6 text-sm text-gray-500 flex flex-wrap gap-3 items-center justify-between">
+          <div>© {new Date().getFullYear()} Musabaqa — جميع الحقوق محفوظة</div>
+          <div className="flex gap-4">
+            <a className="link" href="#">الخصوصية</a>
+            <a className="link" href="#">الشروط</a>
+            <a className="link" href="#">الدعم</a>
+          </div>
+        </div>
+      </div>
+
+      {/* Minimal Tailwind-like utilities */}
+      <style>{`
+        .btn{ @apply px-4 py-2 rounded-xl bg-indigo-600 text-white text-sm hover:bg-indigo-700 transition; }
+        .btn-outline{ @apply px-4 py-2 rounded-xl border border-indigo-600 text-indigo-700 text-sm hover:bg-indigo-50; }
+        .btn-ghost{ @apply px-3 py-2 rounded-xl text-indigo-700 text-sm hover:bg-indigo-50; }
+        .tab{ @apply px-3 py-1.5 rounded-xl text-sm text-gray-700 hover:bg-gray-100; }
+        .tab-active{ @apply bg-gray-900 text-white; }
+        .input{ @apply w-full px-3 py-2 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200; }
+        .textarea{ @apply w-full h-24 px-3 py-2 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200; }
+        .link{ @apply hover:text-gray-900; }
+      `}</style>
+      {/* NOTE: In the canvas preview Tailwind's @apply may not be processed.
+               We inline a minimal fallback style below for reliable preview. */}
+      <style>{`
+        .btn{ padding:8px 16px; border-radius:12px; background:#4f46e5; color:#fff; font-size:14px; }
+        .btn:hover{ background:#4338ca; }
+        .btn-outline{ padding:8px 16px; border-radius:12px; border:1px solid #4f46e5; color:#4338ca; font-size:14px; }
+        .btn-ghost{ padding:8px 12px; border-radius:12px; color:#4338ca; font-size:14px; }
+        .tab{ padding:6px 12px; border-radius:10px; font-size:14px; color:#374151; }
+        .tab-active{ background:#111827; color:#fff; }
+        .input{ width:100%; padding:8px 12px; border:1px solid #e5e7eb; border-radius:12px; font-size:14px; }
+        .textarea{ width:100%; height:100px; padding:8px 12px; border:1px solid #e5e7eb; border-radius:12px; font-size:14px; }
+        .link{ color:#6b7280; text-decoration:none; }
+        .link:hover{ color:#111827; }
+      `}</style>
+    </div>
+  );
+}
