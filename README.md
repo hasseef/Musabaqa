@@ -1,19 +1,21 @@
-# Musabaqa – Plus Demo (Mobile-first)
+# منصة مسابقة — الهوية الجديدة (نسخة عرض شاملة)
 
-This is a GitHub Pages-ready demo:
-- `musabaqa_plus.html` – fully client-side, no build.
-- `Vision2030.png` and `talbiya.png` – compact logos used in header.
-- `.nojekyll` – disable Jekyll processing.
+هذه حزمة جاهزة للنشر على GitHub Pages:
+- `index.html` — واجهة خفيفة تعمل مباشرة (بدون بناء).
+- شعارات: `Vision2030.png`, `talbiya.png` في الهيدر.
+- PWA: `manifest.json` + `service-worker.js` لتثبيت التطبيق على الجوال.
+- `.nojekyll` لتعطيل معالجة Jekyll.
 
-## How to publish
-1) Upload ALL files to the repository root (e.g. hasseef/Musabaqa).
-2) Rename `musabaqa_plus.html` to `index.html` if you want it as the landing page.
-3) Settings → Pages → Deploy from a branch → Branch: `main` / `root`.
-4) Open: `https://<username>.github.io/<repo>/`
+## النشر
+1) ارفع جميع الملفات إلى جذر المستودع `hasseef/Musabaqa`.
+2) تأكد من إعدادات Pages: **Settings → Pages → Deploy from a branch → main / root**.
+3) افتح: `https://hasseef.github.io/Musabaqa/`
 
-## Key features for partners
-- Precise targeting: cities, age bounds, interests.
-- Video support per competition (YouTube/Vimeo/embed URL).
-- Access code requirement derived from video/post to prevent skipping.
-- External/public/targeted sharing with deep-link & token.
-- All accounts covered: Individual, Entity, Sponsor, Admin, Investor.
+## أبرز الميزات
+- استهداف دقيق (مدن/عمر/اهتمامات)، فيديو مرفق، ورمز دخول من الفيديو يمنع التخطي.
+- مشاركة داخل المنصة أو خارجها (رابط عميق يحمل cid+token).
+- نظام نقاط تحفيزي للمستخدم.
+- محفظة راعي وتمويل + مؤشرات ROI مبسطة.
+- لوحات: فرد، جهة، راعٍ، إدارة، مستثمر، ملف شخصي.
+
+> هذه نسخة عرض (Frontend فقط). للتحويل للإنتاج: Next.js + قاعدة بيانات + مدفوعات + تقارير BI.

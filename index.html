@@ -3,100 +3,86 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#0f172a" />
-    <title>مسابقة – نسخة ملائمة للجوال</title>
+    <meta name="theme-color" content="#1b9e4b" />
+    <link rel="manifest" href="manifest.json">
+    <title>منصة مسابقة – الهوية الجديدة</title>
     <style>
       :root{
-        --bg: #0b1020;
-        --card: #0f172a;
-        --muted: #94a3b8;
-        --text: #e5e7eb;
-        --accent: #6d93ff;
-        --accent-2: #22d3ee;
-        --ring: #4f46e5;
-        --ok: #22c55e;
-        --warn: #f59e0b;
+        --bg: #f7faf9;
+        --surface: #ffffff;
+        --muted: #667085;
+        --text: #1f2937;
+        --primary: #1b9e4b;        /* أخضر فاتح */
+        --primary-2: #6cc24a;      /* تدرج أخضر */
+        --secondary: #1d4ed8;      /* أزرق ثقة */
+        --ring: rgba(27,158,75,.25);
         --radius: 14px;
-        --shadow: 0 6px 24px rgba(0,0,0,.25);
+        --shadow: 0 10px 30px rgba(16, 24, 40, .08);
       }
       *{box-sizing:border-box}
       html,body{height:100%}
-      body{margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Noto Sans Arabic', 'Noto Naskh Arabic', 'Segoe UI Emoji', 'Apple Color Emoji', 'Segoe UI Symbol', sans-serif; background:
-        radial-gradient(1200px 500px at 70% -80%, rgba(109,147,255,.25), transparent 60%),
-        radial-gradient(800px 400px at 0% 0%, rgba(34,211,238,.18), transparent 60%),
-        linear-gradient(to bottom, #0b1020, #0b1020 20%, #0d1224 60%, #0b1020);
+      body{
+        margin:0;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Noto Sans Arabic', 'Noto Naskh Arabic', 'Segoe UI Emoji', 'Apple Color Emoji', 'Segoe UI Symbol', sans-serif;
+        background: radial-gradient(1200px 500px at 80% -80%, rgba(108,194,74,.08), transparent 60%),
+                    radial-gradient(800px 400px at 10% 0%, rgba(29,78,216,.06), transparent 60%),
+                    var(--bg);
         color:var(--text);
       }
-      .container{max-width:1100px; margin:0 auto; padding: 16px;}
-
+      a{color:var(--secondary); text-decoration:none}
+      .container{max-width:1100px; margin:0 auto; padding: 14px;}
       /* Header */
-      .nav{position:sticky; top:0; z-index:30; background:rgba(11,16,32,.8); backdrop-filter: blur(12px); border-bottom:1px solid rgba(255,255,255,.08)}
-      .nav-inner{display:flex; align-items:center; justify-content:space-between; gap:8px; padding:12px 10px; max-width:1150px; margin:0 auto;}
-      .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px;}
-      .brand-badge{width:28px; height:28px; border-radius:10px; background:linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: var(--shadow);}
+      .nav{position:sticky; top:0; z-index:40; background:rgba(255,255,255,.85); backdrop-filter: blur(10px); border-bottom:1px solid #eaeef0;}
+      .nav-inner{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 12px; max-width:1150px; margin:0 auto;}
+      .brand{display:flex; align-items:center; gap:10px; font-weight:900; letter-spacing:.3px;}
+      .brand-badge{width:28px; height:28px; border-radius:10px; background:linear-gradient(135deg, var(--primary), var(--primary-2)); box-shadow: var(--shadow);}
       .logos{display:flex; align-items:center; gap:10px}
-      .logo{display:inline-flex; align-items:center; justify-content:center; width:84px; height:28px; border-radius:999px; background:#0b1224; border:1px solid rgba(255,255,255,.08); padding:2px 8px; opacity:.9}
-      .logo svg{height:18px}
-      .nav-buttons{display:flex; gap:6px; align-items:center}
-      .tab{padding:8px 10px; border-radius:10px; font-size:14px; color:#cbd5e1; border:none; background:transparent; cursor:pointer}
-      .tab-active{background:#111c36; color:#fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,.06)}
-      .cta{padding:9px 12px; border-radius:12px; background:linear-gradient(135deg,#4f46e5,#22d3ee); color:#0b1020; font-weight:700; border:none; cursor:pointer}
+      .logo{display:inline-flex; align-items:center; justify-content:center; height:26px; padding:2px 8px; border-radius:999px; background:#fff; border:1px solid #eaeef0; opacity:.9}
+      .logo img{height:18px; display:block}
+      .nav-buttons{display:flex; gap:6px; align-items:center; flex-wrap:wrap}
+      .tab{padding:8px 10px; border-radius:10px; font-size:13px; color:#475569; border:none; background:transparent; cursor:pointer}
+      .tab-active{background:#f1f5f9; color:#0f172a; box-shadow: inset 0 0 0 1px #eaeef0}
+      .cta{padding:9px 12px; border-radius:12px; background:linear-gradient(135deg,var(--primary),var(--primary-2)); color:#0b1020; font-weight:800; border:none; cursor:pointer}
 
-      /* Cards / Controls */
+      /* Grid & Cards */
       .grid{display:grid; gap:12px;}
       .grid-2{grid-template-columns: 1fr 1fr;}
       .grid-3{grid-template-columns: repeat(3, 1fr);}
       .grid-4{grid-template-columns: repeat(4, 1fr);}
       @media (max-width:980px){ .grid-2,.grid-3,.grid-4{grid-template-columns: 1fr;} }
-      .card{background: linear-gradient(180deg,#101a34,#0f172a); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); padding:14px; box-shadow: var(--shadow);}
-      .pill{display:inline-block; padding:4px 8px; border-radius:999px; background:rgba(109,147,255,.12); color:#b9ccff; border:1px solid rgba(109,147,255,.28); font-size:12px; white-space:nowrap}
+      .card{background: var(--surface); border:1px solid #eaeef0; border-radius:var(--radius); padding:14px; box-shadow: var(--shadow);}
+      .pill{display:inline-block; padding:4px 8px; border-radius:999px; background:rgba(27,158,75,.1); color:#146a30; border:1px solid rgba(27,158,75,.15); font-size:12px; white-space:nowrap}
       .muted{color:var(--muted); font-size:14px}
-      .input,.textarea,select{width:100%; padding:10px 12px; border:1px solid rgba(255,255,255,.12); border-radius:12px; background:#0b1224; color:var(--text); font-size:15px; outline:none}
-      .input:focus,.textarea:focus,select:focus{box-shadow: 0 0 0 3px rgba(79,70,229,.35)}
+      .input,.textarea,select{width:100%; padding:10px 12px; border:1px solid #e2e8f0; border-radius:12px; background:#fff; color:var(--text); font-size:15px; outline:none}
+      .input:focus,.textarea:focus,select:focus{box-shadow: 0 0 0 3px var(--ring); border-color:#cfe8d7}
       .textarea{height:100px; resize:vertical}
-      .btn{padding:10px 14px; border-radius:12px; background:#1d2a5b; color:#dbeafe; font-size:14px; border:1px solid rgba(255,255,255,.14); cursor:pointer}
-      .btn:hover{background:#233064}
-      .btn-accent{padding:10px 14px; border-radius:12px; background:#4f46e5; color:white; font-weight:700; border:1px solid rgba(255,255,255,.14); cursor:pointer}
-      .btn-ghost{padding:10px 12px; border-radius:12px; color:#bcd0ff; font-size:14px; border:1px dashed rgba(188,208,255,.25); background:transparent; cursor:pointer}
-      .footer{margin-top:40px; border-top:1px solid rgba(255,255,255,.08); background:rgba(11,16,32,.75);}
-      .footer-inner{max-width:1150px; margin:0 auto; padding:16px; display:flex; align-items:center; gap:12px; justify-content:space-between; color:#9aa6bd; font-size:14px}
+      .btn{padding:10px 14px; border-radius:12px; background:#e8f5ed; color:#0b5f2a; font-size:14px; border:1px solid #cfe8d7; cursor:pointer}
+      .btn:hover{background:#dbf0e3}
+      .btn-accent{padding:10px 14px; border-radius:12px; background:linear-gradient(135deg,var(--primary),var(--primary-2)); color:white; font-weight:800; border:1px solid #b7e3c1; cursor:pointer}
+      .btn-ghost{padding:10px 12px; border-radius:12px; color:#1d4ed8; font-size:14px; border:1px dashed #c7d2fe; background:#f8fafc; cursor:pointer}
+      .btn-danger{padding:10px 12px; border-radius:12px; color:#991b1b; font-size:14px; border:1px solid #fecaca; background:#fff1f2; cursor:pointer}
 
-      /* Hero */
-      .hero-title{font-size:30px; font-weight:900; line-height:1.25; margin:0 0 6px}
-      .hero-sub{color:#b6c2da; margin:0 0 8px; font-size:15px}
-      .kpis{display:grid; gap:12px; grid-template-columns: repeat(3, 1fr);}
-      @media (max-width:980px){ .kpis{grid-template-columns:1fr} }
-      .stat-title{color:#9fb0d1; font-size:13px}
-      .stat-value{font-weight:900; font-size:22px; color:#f1f5f9}
-
-      /* Tap targets for mobile */
-      button, .logo, .pill{touch-action: manipulation}
-
-      /* Scrollbar (mobile-friendly) */
-      ::-webkit-scrollbar{width:10px;height:10px}
-      ::-webkit-scrollbar-thumb{background:#1a2448;border-radius:10px}
-      ::-webkit-scrollbar-track{background:#0b1020}
+      .hero-title{font-size:28px; font-weight:900; line-height:1.25; margin:0 0 6px}
+      .hero-sub{color:#475569; margin:0 0 8px; font-size:15px}
+      .kpis{display:grid; gap:12px; grid-template-columns: repeat(3, 1fr);} @media (max-width:980px){ .kpis{grid-template-columns:1fr} }
+      .stat-title{color:#64748b; font-size:13px} .stat-value{font-weight:900; font-size:22px; color:#0f172a}
+      .footer{margin-top:40px; border-top:1px solid #eaeef0; background:#fafcff;}
+      .footer-inner{max-width:1150px; margin:0 auto; padding:16px; display:flex; align-items:center; gap:12px; justify-content:space-between; color:#64748b; font-size:14px}
+      .video{border-radius:12px; overflow:hidden; aspect-ratio:16/9; background:#000; border:1px solid #e2e8f0}
+      .share{display:flex; gap:8px; flex-wrap:wrap}
+      .hint{font-size:12px; color:#155e75}
+      .ribbon{display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px; background:#f1f5f9; border:1px solid #e2e8f0; font-size:12px; color:#0f172a}
     </style>
   </head>
   <body>
     <header class="nav">
       <div class="nav-inner">
         <div class="brand" aria-label="علامة مسابقة">
-          <span class="brand-badge"></span><span>مسابقة</span>
+          <span class="brand-badge"></span><span>منصة مسابقة</span>
         </div>
         <div class="logos" aria-label="شعارات داعمة">
-          <!-- Vision 2030 compact placeholder (SVG text to avoid trademarks) -->
-          <span class="logo" title="Vision 2030">
-            <svg viewBox="0 0 160 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <text x="0" y="17" font-family="Segoe UI, Arial" font-size="15" fill="#cbd5e1">Vision 2030</text>
-            </svg>
-          </span>
-          <!-- Talabiya compact placeholder -->
-          <span class="logo" title="مبادرة تلبية">
-            <svg viewBox="0 0 120 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <text x="0" y="17" font-family="Segoe UI, Arial" font-size="15" fill="#cbd5e1">Talabiya</text>
-            </svg>
-          </span>
+          <span class="logo" title="Vision 2030"><img src="Vision2030.png" alt="Vision 2030"/></span>
+          <span class="logo" title="مبادرة تلبية"><img src="talbiya.png" alt="Talabiya"/></span>
         </div>
         <div class="nav-buttons">
           <button class="tab tab-active" data-tab="landing">الواجهة</button>
@@ -105,6 +91,7 @@
           <button class="tab" data-tab="sponsor">راعٍ</button>
           <button class="tab" data-tab="admin">الإدارة</button>
           <button class="tab" data-tab="investor">المستثمر</button>
+          <button class="tab" data-tab="profile">ملفي</button>
           <button class="cta">ابدأ</button>
         </div>
       </div>
@@ -124,39 +111,38 @@
     </footer>
 
     <script>
+      if('serviceWorker' in navigator){ navigator.serviceWorker.register('service-worker.js'); }
       document.getElementById('y').textContent = new Date().getFullYear();
 
-      // Theme tokens (for future theming)
-      const theme = {
-        primary: "#6d93ff",
-        secondary: "#22d3ee",
-        text: "#e5e7eb",
-        muted: "#94a3b8"
-      };
-
+      // ---- State & Seed ----
       const view = document.getElementById('view');
       const state = {
         route: 'landing',
+        user: { name:'فهد', city:'الرياض', age:24, interests:['الثقافة','التقنية','الرياضة'], points: 120 },
+        sponsor: { org:'شركة تموين الغذاء', wallet:25000, spend:0 },
         competitions: [
-          { id: 'c1', title:'التوعية بالأمن الرقمي', type:'توعوية', owner:'وزارة التعليم', city:'الرياض', prize:1000, prizeType:'رقمية', status:'مفتوحة', winners:3, participants:[] },
-          { id: 'c2', title:'تحدي شعار المنتج الجديد', type:'تسويقية', owner:'شركة تموين الغذاء', city:'جدة', prize:5000, prizeType:'عينية', status:'مفتوحة', winners:1, participants:[] },
-          { id: 'c3', title:'أسبوع البيئة – فكرة مبتكرة لتقليل الهدر', type:'توعوية', owner:'وزارة البيئة', city:'الدمام', prize:3000, prizeType:'نقدية', status:'مغلقة', winners:2, participants:[{user:'سارة', city:'الرياض'},{user:'خالد', city:'الدمام'}] }
-        ],
-        user: { name:'فهد', city:'الرياض', interests:['الثقافة','التقنية','الرياضة'] },
-        sponsor: { org:'شركة تموين الغذاء', wallet:25000 }
+          { id: 'c1', title:'التوعية بالأمن الرقمي', type:'توعوية', owner:'وزارة التعليم', city:'الرياض', prize:1000, prizeType:'رقمية', status:'مفتوحة', winners:3, participants:[], requiresCode:true, accessCode:'SEC-2030', videoUrl:'', target:{cities:['الرياض'], minAge:16, maxAge:60, interests:['التقنية']} },
+          { id: 'c2', title:'تحدي شعار المنتج الجديد', type:'تسويقية', owner:'شركة تموين الغذاء', city:'جدة', prize:5000, prizeType:'عينية', status:'مفتوحة', winners:1, participants:[], requiresCode:false, accessCode:'', videoUrl:'', target:{cities:['جدة'], minAge:18, maxAge:55, interests:['التسويق','الابداع']} },
+          { id: 'c3', title:'أسبوع البيئة – فكرة مبتكرة لتقليل الهدر', type:'توعوية', owner:'وزارة البيئة', city:'الدمام', prize:3000, prizeType:'نقدية', status:'مغلقة', winners:2, participants:[{user:'سارة', city:'الرياض'}], requiresCode:false, accessCode:'', videoUrl:'', target:{cities:['الدمام'], minAge:15, maxAge:60, interests:['البيئة']} }
+        ]
       };
 
+      // ---- Utils ----
       function SAR(n){ return new Intl.NumberFormat('ar-SA',{style:'currency',currency:'SAR'}).format(n); }
       function fmt(n){ return new Intl.NumberFormat('ar-SA').format(n); }
-
-      function Stat(label, value, sub){
-        return `<div class="card"><div class="stat-value">${value}</div><div class="stat-title">${label}</div>${sub?`<div class="muted" style="font-size:12px;margin-top:4px">${sub}</div>`:''}</div>`;
-      }
+      function val(id){ const el = document.getElementById(id); return el?el.value:''; }
+      function copy(text){ navigator.clipboard.writeText(text).then(()=>alert('تم نسخ الرابط 👍')); }
       function Pill(txt){ return `<span class="pill">${txt}</span>`; }
-      function AccountCard(key, title, desc){
-        return `<div class="card" data-go="${key}" style="cursor:pointer"><div style="font-weight:700">${title}</div><div class="muted" style="margin-top:4px">${desc}</div></div>`;
+      function Stat(label, value, sub){ return `<div class="card"><div class="stat-value">${value}</div><div class="stat-title">${label}</div>${sub?`<div class="muted" style="font-size:12px;margin-top:4px">${sub}</div>`:''}</div>`; }
+      function AccountCard(key, title, desc){ return `<div class="card" data-go="${key}" style="cursor:pointer"><div style="font-weight:700">${title}</div><div class="muted" style="margin-top:4px">${desc}</div></div>`; }
+      function isTargeted(c){ const u=state.user; const t=c.target||{cities:[],minAge:0,maxAge:0,interests:[]};
+        const cityOK = t.cities.length? t.cities.includes(u.city) : true;
+        const ageOK = (!t.minAge || u.age>=t.minAge) && (!t.maxAge || u.age<=t.maxAge);
+        const interestsOK = t.interests.length? t.interests.some(x=> u.interests.includes(x)) : true;
+        return cityOK && ageOK && interestsOK;
       }
 
+      // ---- Render ----
       function render(){
         const active = state.competitions.filter(c=> c.status!=='مغلقة').length;
         const participations = state.competitions.reduce((a,c)=> a + c.participants.length, 0);
@@ -170,8 +156,9 @@
             <section class="container">
               <div class="grid grid-2" style="align-items:center">
                 <div>
-                  <h1 class="hero-title">مسابقة — هوية عصرية تربط <span style="color:${theme.primary}">التحدي</span> بـ <span style="color:${theme.secondary}">التحفيز</span></h1>
-                  <p class="hero-sub">منصة وطنية للمسابقات التوعوية والتسويقية تقيس أثر التفاعل رقميًا وتسلّم الجوائز بأنواعها.</p>
+                  <span class="ribbon">هوية جديدة • متوافقة مع رؤية 2030</span>
+                  <h1 class="hero-title">مسابقة — خيارك الأمثل للمسابقات <span style="color:var(--primary)">التوعوية</span> و<span style="color:var(--secondary)">التسويقية</span></h1>
+                  <p class="hero-sub">استهداف دقيق + فيديوهات قصيرة + رمز دخول من الفيديو + مشاركة داخلية وخارجية + نظام نقاط يحفّز المشاركة.</p>
                   <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">
                     <button class="btn-accent" data-go="individual">ابدأ التحدي (فرد)</button>
                     <button class="btn" data-go="entity">للجهات الحكومية/غير الربحية</button>
@@ -179,7 +166,7 @@
                     <button class="btn-ghost" data-go="investor">لوحة المستثمر</button>
                   </div>
                   <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
-                    ${Pill('RTL')}${Pill('تقارير تفاعلية')}${Pill('محفظة رقمية')}${Pill('جوائز نقدية/رقمية/عينية')}
+                    ${Pill('استهداف دقيق')} ${Pill('رمز من الفيديو')} ${Pill('نقاط وولاء')} ${Pill('تقارير ROI')}
                   </div>
                 </div>
                 <div class="card">
@@ -201,95 +188,66 @@
                 ${AccountCard('sponsor','الشركات/الرعاة','رعاية/إنشاء مسابقات وتحليل ROI')}
                 ${AccountCard('investor','المستثمر','مؤشرات الأداء والنمو المالي')}
               </div>
-
-              <h3 style="font-size:18px;font-weight:700;margin:14px 0 8px">شركاء وتجارب</h3>
-              <div class="card">
-                <div class="grid grid-4" style="text-align:center;color:#cbd5e1">
-                  <div class="card">وزارة البيئة (تجريبي)</div>
-                  <div class="card">وزارة التعليم (تجريبي)</div>
-                  <div class="card">شركة تموين الغذاء</div>
-                  <div class="card">جامعة حائل</div>
-                </div>
-              </div>
             </section>
           `,
           individual: `
             <section class="container">
               <h2 style="font-size:22px;font-weight:800;margin-bottom:10px">مرحبًا ${state.user.name} 👋</h2>
               <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
-                ${Pill('المدينة: '+state.user.city)}
-                ${Pill('اهتمامات: '+state.user.interests.join('، '))}
-                <select id="cityFilter" class="input" aria-label="فلترة حسب المدينة">
-                  <option value="">كل المدن</option><option>الرياض</option><option>جدة</option><option>الدمام</option>
-                </select>
+                ${Pill('المدينة: '+state.user.city)} ${Pill('العمر: '+state.user.age)} ${Pill('اهتمامات: '+state.user.interests.join('، '))} ${Pill('نقاطي: '+state.user.points)}
               </div>
               <div class="grid grid-2">
                 ${state.competitions.filter(c=> c.status!=='مغلقة').map(c => `
                   <article class="card">
                     <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
-                      <h4 style="margin:0;font-weight:800">${c.title}</h4>
-                      ${Pill(c.type)}
+                      <h4 style="margin:0;font-weight:800">${c.title}</h4> ${Pill(c.type)}
                     </div>
                     <div class="muted" style="margin-top:4px">${c.owner} • ${c.city}</div>
-                    <div style="font-size:14px;margin-top:8px">الجائزة: ${SAR(c.prize)} (${c.prizeType}) • عدد الفائزين: ${c.winners}</div>
-                    <textarea class="textarea" data-answer="${c.id}" placeholder="اكتب إجابتك بإيجاز"></textarea>
+                    <div style="margin-top:8px;font-size:14px">الجائزة: ${SAR(c.prize)} (${c.prizeType}) • فائزون: ${c.winners}</div>
+                    ${c.videoUrl ? `<div class="video"><iframe src="${c.videoUrl}" width="100%" height="100%" frameborder="0" allowfullscreen></iframe></div>` : ''}
+                    ${c.requiresCode ? `<div class="hint" style="margin-top:6px">هذه المسابقة تتطلب إدخال رمز يظهر داخل الفيديو/البوست</div>`:''}
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+                      <input class="input" ${c.requiresCode?'':'disabled'} placeholder="أدخل الرمز إن طُلب" data-code="${c.id}"/>
+                      <textarea class="textarea" data-answer="${c.id}" placeholder="اكتب إجابتك بإيجاز"></textarea>
+                    </div>
                     <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
                       <button class="btn-accent" data-participate="${c.id}">أشارك الآن</button>
-                      <button class="btn-ghost">مشاركة</button>
+                      <button class="btn-ghost" data-share="${c.id}">نسخ رابط المشاركة</button>
+                      ${isTargeted(c) ? Pill('مطابق للاستهداف ✅') : Pill('خارج الاستهداف ⚠️')}
                     </div>
                   </article>
                 `).join('')}
               </div>
-            </section>
-          `,
-          entity: `
-            <section class="container">
-              <h2 style="font-size:22px;font-weight:800;margin-bottom:10px">لوحة الجهة: وزارة التعليم – إدارة الوعي الرقمي</h2>
-              <div class="card">
-                <h3 style="font-size:18px;font-weight:700;margin-bottom:8px">إنشاء مسابقة توعوية</h3>
+
+              <div class="card" style="margin-top:12px">
+                <h3 style="font-size:18px;font-weight:800;margin:0 0 8px">إنشاء مسابقة (فرد)</h3>
                 <div class="grid grid-2">
-                  <input id="e-title" class="input" placeholder="عنوان المسابقة" />
-                  <select id="e-type" class="input"><option>توعوية</option><option>ثقافية</option><option>تسويقية</option></select>
-                  <select id="e-city" class="input"><option>الرياض</option><option>جدة</option><option>الدمام</option></select>
-                  <input id="e-winners" class="input" type="number" min="1" value="1" />
-                  <input id="e-prize" class="input" type="number" min="0" value="1000" />
-                  <select id="e-ptype" class="input"><option>رقمية</option><option>نقدية</option><option>عينية</option></select>
+                  <input id="u-title" class="input" placeholder="عنوان المسابقة" />
+                  <select id="u-type" class="input"><option>توعوية</option><option>ثقافية</option><option>تسويقية</option></select>
+                  <select id="u-city" class="input"><option>الرياض</option><option>جدة</option><option>الدمام</option></select>
+                  <input id="u-winners" class="input" type="number" min="1" value="1" />
+                  <input id="u-prize" class="input" type="number" min="0" value="1000" />
+                  <select id="u-ptype" class="input"><option>رقمية</option><option>نقدية</option><option>عينية</option></select>
+                  <input id="u-video" class="input" placeholder="رابط فيديو (YouTube/Vimeo/Embed)" />
+                  <label style="display:flex;align-items:center;gap:8px"><input id="u-req" type="checkbox"/> اشتراط الرمز</label>
+                  <input id="u-code" class="input" placeholder="الرمز الذي سيظهر داخل الفيديو/البوست" />
                 </div>
-                <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
-                  <button class="btn-accent" id="e-create">إنشاء المسابقة</button>
-                  <button class="btn">حفظ مسودة</button>
+                <h4 style="font-size:16px;font-weight:700;margin:10px 0 6px">استهداف</h4>
+                <div class="grid grid-2">
+                  <input id="u-tcities" class="input" placeholder="مدن مفصولة بفواصل (مثال: الرياض, جدة)" />
+                  <input id="u-interests" class="input" placeholder="اهتمامات (مثال: التقنية, الرياضة)" />
+                  <input id="u-minage" class="input" type="number" min="0" placeholder="العمر الأدنى" />
+                  <input id="u-maxage" class="input" type="number" min="0" placeholder="العمر الأقصى" />
                 </div>
+                <div class="share" style="margin-top:8px">
+                  <span class="pill">نشر عام</span><span class="pill">نشر للفئة المستهدفة</span><span class="pill">مشاركة خارجية (واتساب…)</span>
+                </div>
+                <div style="margin-top:8px"><button class="btn" id="u-create">أنشئ الآن</button></div>
               </div>
             </section>
           `,
-          sponsor: `
-            <section class="container">
-              <h2 style="font-size:22px;font-weight:800;margin-bottom:10px">لوحة الراعي: ${state.sponsor.org}</h2>
-              <div class="grid grid-3">
-                ${Stat('رصيد المحفظة', SAR(state.sponsor.wallet), 'يمكن الإيداع لاحقًا')}
-                ${Stat('حملات مفتوحة للرعاية', fmt(state.competitions.filter(c=> c.status==='مفتوحة').length))}
-                ${Stat('متوسط قيمة الجوائز', SAR(avgPrize()))}
-              </div>
-              <div class="grid grid-2" style="margin-top:12px">
-                <div class="card">
-                  <h3 style="font-size:18px;font-weight:700;margin-bottom:8px">إنشاء مسابقة تسويقية</h3>
-                  <div class="grid grid-2">
-                    <input id="s-title" class="input" style="grid-column:1 / -1" value="حملة ترويجية جديدة" />
-                    <select id="s-type" class="input"><option>تسويقية</option><option>ثقافية</option></select>
-                    <select id="s-city" class="input"><option>الرياض</option><option>جدة</option><option>الدمام</option></select>
-                    <input id="s-winners" class="input" type="number" value="1" />
-                    <input id="s-prize" class="input" type="number" value="2000" />
-                    <select id="s-ptype" class="input"><option>رقمية</option><option>نقدية</option><option>عينية</option></select>
-                  </div>
-                  <div style="margin-top:8px"><button class="btn-accent" id="s-create">إنشاء</button></div>
-                </div>
-                <div class="card">
-                  <h3 style="font-size:18px;font-weight:700;margin-bottom:8px">رعاية مسابقة قائمة</h3>
-                  <div id="s-open"></div>
-                </div>
-              </div>
-            </section>
-          `,
+          entity: creationForm('جهة حكومية/غير ربحية', 'gov'),
+          sponsor: creationForm('راعٍ/شركة', 'sponsor'),
           admin: `
             <section class="container">
               <h2 style="font-size:22px;font-weight:800;margin-bottom:10px">لوحة الإدارة</h2>
@@ -297,14 +255,12 @@
                 ${state.competitions.map(c => `
                   <div class="card">
                     <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
-                      <div style="font-weight:800">${c.title}</div>
-                      ${Pill(c.status)}
+                      <div style="font-weight:800">${c.title}</div> ${Pill(c.status)}
                     </div>
                     <div class="muted" style="margin-top:4px">${c.owner} • ${c.type} • ${c.city}</div>
                     <div style="font-size:14px;margin-top:8px">مشاركون: ${c.participants.length} • الجائزة: ${SAR(c.prize)} • فائزون: ${c.winners}</div>
                     <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
-                      ${c.status==='مسودة' ? `<button class="btn" data-approve="${c.id}">اعتماد</button>` : ''}
-                      ${c.status!=='مغلقة' ? `<button class="btn" data-close="${c.id}">إغلاق</button>` : ''}
+                      ${c.status!=='مغلقة' ? `<button class="btn-danger" data-close="${c.id}">إغلاق</button>` : ''}
                       <button class="btn-accent" data-pick="${c.id}">فرز الفائزين</button>
                     </div>
                   </div>
@@ -326,7 +282,21 @@
                   ${Stat('مسابقات نشطة', fmt(active))}
                   ${Stat('قيمة الجوائز الإجمالية', SAR(prizeValue))}
                 </div>
-                <div class="muted" style="margin-top:8px">* هذه البيانات محاكاة للعرض فقط — يمكن ربطها بمصدر بيانات حقيقي لاحقًا.</div>
+                <div class="muted" style="margin-top:8px">* هذه البيانات محاكاة — تُربط لاحقًا بالمصدر الحقيقي.</div>
+              </div>
+            </section>
+          `,
+          profile: `
+            <section class="container">
+              <h2 style="font-size:22px;font-weight:800;margin-bottom:10px">ملفي</h2>
+              <div class="grid grid-3">
+                ${Stat('نقاطي', fmt(state.user.points), 'تزداد عند المشاركة الصحيحة')}
+                ${Stat('مدينتي', state.user.city)}
+                ${Stat('عُمري', fmt(state.user.age))}
+              </div>
+              <div class="card" style="margin-top:12px">
+                <h3 style="font-size:18px;font-weight:800;margin:0 0 8px">اهتماماتي</h3>
+                <div class="share">${state.user.interests.map(Pill).join('')}</div>
               </div>
             </section>
           `
@@ -334,33 +304,56 @@
 
         view.innerHTML = R[state.route];
 
-        // Wire interactions
+        // Nav wiring
         document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', e => routeTo(e.target.getAttribute('data-go'))));
-        if(state.route === 'individual'){
-          document.querySelectorAll('[data-participate]').forEach(btn => btn.addEventListener('click', e => {
-            const cid = e.target.getAttribute('data-participate');
-            const ta = document.querySelector(`[data-answer="${cid}"]`);
-            const answer = (ta && ta.value || '').trim();
-            if(!answer){ alert('فضلاً اكتب مشاركتك قبل الإرسال'); return; }
-            const c = state.competitions.find(x=> x.id===cid);
-            c.participants.push({ user: state.user.name, city: state.user.city, answer });
-            if(ta) ta.value = '';
-            alert('تم إرسال مشاركتك بنجاح ✅');
-          }));
-        }
-        if(state.route === 'entity'){
-          const create = document.getElementById('e-create');
-          if(create) create.addEventListener('click', () => {
+
+        // Participation + share
+        document.querySelectorAll('[data-share]').forEach(btn => btn.addEventListener('click', e => {
+          const cid = e.target.getAttribute('data-share');
+          const c = state.competitions.find(x=> x.id===cid);
+          const token = c.requiresCode ? `&token=${encodeURIComponent(c.accessCode)}` : '';
+          const link = `${location.origin}${location.pathname}?cid=${encodeURIComponent(cid)}${token}`;
+          copy(link);
+        }));
+        document.querySelectorAll('[data-participate]').forEach(btn => btn.addEventListener('click', e => {
+          const cid = e.target.getAttribute('data-participate');
+          const c = state.competitions.find(x=> x.id===cid);
+          const ta = document.querySelector(`[data-answer="${cid}"]`);
+          const codeInput = document.querySelector(`[data-code="${cid}"]`);
+          const answer = (ta && ta.value || '').trim();
+          const code = codeInput ? (codeInput.value||'').trim() : '';
+          if(!answer){ alert('فضلاً اكتب مشاركتك قبل الإرسال'); return; }
+          if(c.requiresCode && code !== c.accessCode){ alert('رمز الدخول غير صحيح'); return; }
+          c.participants.push({ user: state.user.name, city: state.user.city, answer });
+          state.user.points += 5; // نقاط تحفيزية
+          if(ta) ta.value = ''; if(codeInput) codeInput.value='';
+          alert('تم إرسال مشاركتك بنجاح ✅ +5 نقاط');
+          render();
+        }));
+
+        // Individual create
+        const ucreate = document.getElementById('u-create');
+        if(ucreate){
+          ucreate.addEventListener('click', () => {
             const entry = {
               id: 'c'+Date.now(),
-              title: val('e-title') || 'مسابقة بدون عنوان',
-              type: val('e-type'),
-              owner: 'وزارة التعليم',
-              city: val('e-city'),
-              prize: Number(val('e-prize'))||0,
-              prizeType: val('e-ptype'),
+              title: val('u-title') || 'مسابقة بدون عنوان',
+              type: val('u-type'),
+              owner: state.user.name,
+              city: val('u-city'),
+              prize: Number(val('u-prize'))||0,
+              prizeType: val('u-ptype'),
               status: 'مفتوحة',
-              winners: Number(val('e-winners'))||1,
+              winners: Number(val('u-winners'))||1,
+              videoUrl: val('u-video'),
+              requiresCode: document.getElementById('u-req').checked,
+              accessCode: val('u-code'),
+              target: {
+                cities: val('u-tcities').split(',').map(s=>s.trim()).filter(Boolean),
+                minAge: Number(val('u-minage'))||0,
+                maxAge: Number(val('u-maxage'))||0,
+                interests: val('u-interests').split(',').map(s=>s.trim()).filter(Boolean)
+              },
               participants: []
             };
             state.competitions.unshift(entry);
@@ -368,34 +361,46 @@
             routeTo('admin');
           });
         }
-        if(state.route === 'sponsor'){
-          const create = document.getElementById('s-create');
-          if(create) create.addEventListener('click', () => {
+
+        // Entity/Sponsor forms
+        const createBtn = document.getElementById('create-btn');
+        if(createBtn){
+          createBtn.addEventListener('click', () => {
             const entry = {
               id: 'c'+Date.now(),
-              title: val('s-title'),
-              type: val('s-type'),
-              owner: state.sponsor.org,
-              city: val('s-city'),
-              prize: Number(val('s-prize'))||0,
-              prizeType: val('s-ptype'),
+              title: val('f-title') || 'مسابقة بدون عنوان',
+              type: val('f-type'),
+              owner: val('f-owner') || (createBtn.dataset.kind==='gov'?'جهة حكومية':'راعٍ'),
+              city: val('f-city'),
+              prize: Number(val('f-prize'))||0,
+              prizeType: val('f-ptype'),
               status: 'مفتوحة',
-              winners: Number(val('s-winners'))||1,
+              winners: Number(val('f-winners'))||1,
+              videoUrl: val('f-video'),
+              requiresCode: document.getElementById('f-req').checked,
+              accessCode: val('f-code'),
+              target: {
+                cities: val('f-tcities').split(',').map(s=>s.trim()).filter(Boolean),
+                minAge: Number(val('f-minage'))||0,
+                maxAge: Number(val('f-maxage'))||0,
+                interests: val('f-interests').split(',').map(s=>s.trim()).filter(Boolean)
+              },
               participants: []
             };
             state.competitions.unshift(entry);
-            alert('تم إنشاء المسابقة التسويقية ✅');
+            alert('تم إنشاء المسابقة ونشرها ✅');
             routeTo('admin');
           });
-          // render open comps for quick fund
-          const open = state.competitions.filter(c=> c.status==='مفتوحة');
-          const holder = document.getElementById('s-open');
-          if(holder){
+
+          // Sponsor quick fund list
+          if(createBtn.dataset.kind==='sponsor'){
+            const open = state.competitions.filter(c=> c.status==='مفتوحة');
+            const holder = document.getElementById('s-open');
             holder.innerHTML = open.map(c => `
-              <div style="display:flex;align-items:center;justify-content:space-between;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:12px;margin-bottom:8px;background:#0b1224">
+              <div style="display:flex;align-items:center;justify-content:space-between;border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin-bottom:8px;background:#fff">
                 <div><div style="font-weight:800">${c.title}</div><div class="muted">${c.owner} • ${c.city}</div></div>
                 <div style="display:flex;gap:8px;align-items:center">
-                  <input class="input" style="width:110px" type="number" min="100" value="1000" data-amt="${c.id}" />
+                  <input class="input" style="width:120px" type="number" min="100" value="1000" data-amt="${c.id}" />
                   <button class="btn-accent" data-fund="${c.id}">تمويل</button>
                 </div>
               </div>`).join('');
@@ -407,29 +412,41 @@
               const c = state.competitions.find(x=> x.id===cid);
               c.prize += amt;
               state.sponsor.wallet = Math.max(0, state.sponsor.wallet - amt);
+              state.sponsor.spend += amt;
               alert('تم التمويل وإضافة القيمة إلى الجائزة ✅');
               routeTo('sponsor');
             }));
           }
         }
-        if(state.route === 'admin'){
-          document.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', e => {
-            const cid = e.target.getAttribute('data-close');
-            const c = state.competitions.find(x=> x.id===cid);
-            c.status = 'مغلقة';
-            render();
-          }));
-          document.querySelectorAll('[data-pick]').forEach(btn => btn.addEventListener('click', e => {
-            const cid = e.target.getAttribute('data-pick');
-            const c = state.competitions.find(x=> x.id===cid);
-            const shuffled = c.participants.slice().sort(()=> Math.random()-0.5);
-            const winners = shuffled.slice(0, c.winners);
-            alert(`تم اختيار ${winners.length} فائز/ة:\n` + winners.map(w=>`• ${w.user} (${w.city})`).join('\n'));
-          }));
+
+        // Admin actions
+        document.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', e => {
+          const cid = e.target.getAttribute('data-close');
+          const c = state.competitions.find(x=> x.id===cid);
+          c.status = 'مغلقة';
+          render();
+        }));
+        document.querySelectorAll('[data-pick]').forEach(btn => btn.addEventListener('click', e => {
+          const cid = e.target.getAttribute('data-pick');
+          const c = state.competitions.find(x=> x.id===cid);
+          const shuffled = c.participants.slice().sort(()=> Math.random()-0.5);
+          const winners = shuffled.slice(0, c.winners);
+          alert(`تم اختيار ${winners.length} فائز/ة:\n` + winners.map(w=>`• ${w.user} (${w.city})`).join('\n'));
+        }));
+
+        // Deep link prefill
+        const url = new URL(location.href);
+        const deepCid = url.searchParams.get('cid');
+        const token = url.searchParams.get('token') || '';
+        if(deepCid){
+          routeTo('individual');
+          setTimeout(()=>{
+            const codeInp = document.querySelector(`[data-code="${deepCid}"]`);
+            if(codeInp && token) codeInp.value = token;
+          }, 0);
         }
       }
 
-      function val(id){ const el = document.getElementById(id); return el?el.value:''; }
       function routeTo(tab){
         state.route = tab;
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('tab-active'));
@@ -438,6 +455,52 @@
         render();
         window.scrollTo({top:0, behavior:'smooth'});
       }
+
+      function creationForm(label, kind){
+        return `
+          <section class="container">
+            <h2 style="font-size:22px;font-weight:800;margin-bottom:10px">إنشاء مسابقة (${label})</h2>
+            <div class="grid grid-3">
+              ${Stat('محفظة الراعي', SAR(state.sponsor.wallet), kind==='sponsor' ? 'إنفاق تراكمي: '+SAR(state.sponsor.spend) : '')}
+              ${Stat('متوسط قيمة الجوائز', SAR(avgPrize()))}
+              ${Stat('حملات مفتوحة', fmt(state.competitions.filter(c=> c.status==='مفتوحة').length))}
+            </div>
+            <div class="card" style="margin-top:12px">
+              <div class="grid grid-2">
+                <input id="f-title" class="input" placeholder="عنوان المسابقة" />
+                <select id="f-type" class="input"><option>توعوية</option><option>ثقافية</option><option>تسويقية</option></select>
+                <input id="f-owner" class="input" placeholder="اسم الجهة/الشركة (اختياري)" />
+                <select id="f-city" class="input"><option>الرياض</option><option>جدة</option><option>الدمام</option></select>
+                <input id="f-winners" class="input" type="number" min="1" value="1" />
+                <input id="f-prize" class="input" type="number" min="0" value="1000" />
+                <select id="f-ptype" class="input"><option>رقمية</option><option>نقدية</option><option>عينية</option></select>
+                <input id="f-video" class="input" placeholder="رابط فيديو (YouTube/Vimeo/Embed)" />
+              </div>
+              <h3 style="font-size:16px;font-weight:700;margin:10px 0 6px">الاستهداف الدقيق</h3>
+              <div class="grid grid-2">
+                <input id="f-tcities" class="input" placeholder="مدن مستهدفة مفصولة بفواصل (مثال: الرياض, جدة)" />
+                <input id="f-interests" class="input" placeholder="اهتمامات مستهدفة (مثال: التقنية, البيئة)" />
+                <input id="f-minage" class="input" type="number" min="0" placeholder="العمر الأدنى" />
+                <input id="f-maxage" class="input" type="number" min="0" placeholder="العمر الأقصى" />
+              </div>
+              <h3 style="font-size:16px;font-weight:700;margin:10px 0 6px">الرمز من الفيديو (لمنع التخطي)</h3>
+              <div class="grid grid-2">
+                <label style="display:flex;align-items:center;gap:8px"><input id="f-req" type="checkbox"/> تفعيل اشتراط الرمز</label>
+                <input id="f-code" class="input" placeholder="اكتب الرمز الذي سيظهر داخل الفيديو/البوست" />
+              </div>
+              <h3 style="font-size:16px;font-weight:700;margin:10px 0 6px">النشر والمشاركة</h3>
+              <div class="share">
+                <span class="pill">نشر داخل المنصة (عام)</span>
+                <span class="pill">نشر للفئة المستهدفة فقط</span>
+                <span class="pill">مشاركة خارجية (واتساب/تويتر/سناب)</span>
+              </div>
+              <div style="margin-top:10px"><button class="btn-accent" id="create-btn" data-kind="${kind}">إنشاء المسابقة</button></div>
+              ${kind==='sponsor'?`<div class="card" style="margin-top:12px"><h4 style="margin:0 0 8px">رعاية مسابقة قائمة</h4><div id="s-open"></div></div>`:''}
+            </div>
+          </section>
+        `;
+      }
+
       function avgPrize(){
         const open = state.competitions.filter(c=> c.status==='مفتوحة');
         if(open.length===0) return 0;

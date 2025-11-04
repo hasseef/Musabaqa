@@ -1,0 +1,22 @@
+{
+  "name": "منصة مسابقة",
+  "short_name": "مسابقة",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f7faf9",
+  "theme_color": "#1b9e4b",
+  "icons": [
+    {
+      "src": "talbiya.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "talbiya.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "dir": "rtl",
+  "lang": "ar"
+}
