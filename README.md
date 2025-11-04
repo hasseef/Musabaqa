@@ -1,17 +1,19 @@
-# Musabaqa – GitHub Pages Bundle
+# Musabaqa – Plus Demo (Mobile-first)
 
-This folder contains a ready-to-publish GitHub Pages demo:
-- `index.html` – self-contained demo using React UMD + Babel (no build step required).
-- `.nojekyll` – disables Jekyll processing to avoid asset/routing issues on Pages.
+This is a GitHub Pages-ready demo:
+- `musabaqa_plus.html` – fully client-side, no build.
+- `Vision2030.png` and `talbiya.png` – compact logos used in header.
+- `.nojekyll` – disable Jekyll processing.
 
 ## How to publish
-1) Create or open your repo (e.g., hasseef/Musabaqa) on GitHub.
-2) Upload *both* files to the repository root (`index.html` and `.nojekyll`).
-3) Go to **Settings → Pages**:
-   - Source: **Deploy from a branch**
-   - Branch: **main** / **root**
-4) Open: `https://<your-username>.github.io/<repo-name>/`
+1) Upload ALL files to the repository root (e.g. hasseef/Musabaqa).
+2) Rename `musabaqa_plus.html` to `index.html` if you want it as the landing page.
+3) Settings → Pages → Deploy from a branch → Branch: `main` / `root`.
+4) Open: `https://<username>.github.io/<repo>/`
 
-## Notes
-- This demo runs fully client-side and is meant for showcasing flows to partners/investors.
-- For production, consider a Next.js app with a proper build & deployment pipeline.
+## Key features for partners
+- Precise targeting: cities, age bounds, interests.
+- Video support per competition (YouTube/Vimeo/embed URL).
+- Access code requirement derived from video/post to prevent skipping.
+- External/public/targeted sharing with deep-link & token.
+- All accounts covered: Individual, Entity, Sponsor, Admin, Investor.
