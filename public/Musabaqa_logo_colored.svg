@@ -1,0 +1,8 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1B9E4B"/><stop offset="100%" stop-color="#1D4ED8"/></linearGradient></defs>
+<rect width="100%" height="100%" fill="#fff"/>
+<path d="M200,620 C240,440 380,440 420,620 C460,800 600,800 640,620 C680,440 820,440 860,620" fill="none" stroke="url(#g)" stroke-width="80" stroke-linecap="round"/>
+<polygon points="740,320 770,380 840,390 790,435 802,505 740,470 678,505 690,435 640,390 710,380" fill="#FDB022"/>
+<text x="512" y="900" font-family="Arial,Segoe UI" font-weight="900" font-size="160" text-anchor="middle" fill="#0F172A">مسابقة</text>
+<text x="512" y="980" font-family="Arial,Segoe UI" font-size="56" text-anchor="middle" fill="#475569">Musabaqa</text>
+</svg>

@@ -1,21 +1,22 @@
-# منصة مسابقة — الهوية الجديدة (نسخة عرض شاملة)
+# Musabaqa Platform — Production (Next.js 14 + Prisma + Tailwind)
 
-هذه حزمة جاهزة للنشر على GitHub Pages:
-- `index.html` — واجهة خفيفة تعمل مباشرة (بدون بناء).
-- شعارات: `Vision2030.png`, `talbiya.png` في الهيدر.
-- PWA: `manifest.json` + `service-worker.js` لتثبيت التطبيق على الجوال.
-- `.nojekyll` لتعطيل معالجة Jekyll.
+## تشغيل محليًا
+```bash
+pnpm i
+cp .env.example .env
+npx prisma generate
+npx prisma migrate dev --name init
+pnpm prisma:seed
+pnpm dev
+```
 
-## النشر
-1) ارفع جميع الملفات إلى جذر المستودع `hasseef/Musabaqa`.
-2) تأكد من إعدادات Pages: **Settings → Pages → Deploy from a branch → main / root**.
-3) افتح: `https://hasseef.github.io/Musabaqa/`
+## نشر على Vercel
+- اربط المستودع
+- أضف `DATABASE_URL` (SQLite أو Postgres)
+- نفّذ البناء
 
-## أبرز الميزات
-- استهداف دقيق (مدن/عمر/اهتمامات)، فيديو مرفق، ورمز دخول من الفيديو يمنع التخطي.
-- مشاركة داخل المنصة أو خارجها (رابط عميق يحمل cid+token).
-- نظام نقاط تحفيزي للمستخدم.
-- محفظة راعي وتمويل + مؤشرات ROI مبسطة.
-- لوحات: فرد، جهة، راعٍ، إدارة، مستثمر، ملف شخصي.
-
-> هذه نسخة عرض (Frontend فقط). للتحويل للإنتاج: Next.js + قاعدة بيانات + مدفوعات + تقارير BI.
+## API
+- GET/POST `/api/competitions`
+- GET/POST `/api/opportunities`
+- GET `/api/kpis`
+- POST `/api/ai/generate-questions`

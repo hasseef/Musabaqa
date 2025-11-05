@@ -1,0 +1,1 @@
+export default function Page(){return (<div className='space-y-3'><h2 className='text-2xl font-extrabold'>لوحة investor</h2><p className='text-slate-600'>نسخة تشغيلية أولية — سيتم إكمال المكونات التفصيلية في مرحلة الدمج.</p></div>);}
