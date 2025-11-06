@@ -1,18 +1,32 @@
 
-const CACHE = "musabaqa-cache-v1";
+const CACHE = "musabaqa-pro-v1";
 const ASSETS = [
-  "/",
-  "/index.html",
-  "/css/style.css",
-  "/js/app.js",
-  "/js/auth.js",
-  "/images/logo-musabaqa.svg",
-  "/images/logo-vision.svg",
-  "/images/logo-talabia.svg",
-  "/images/icon-192.png",
-  "/images/icon-512.png",
-  "/images/favicon.png",
-  "/images/preview.png"
+  "./",
+  "./index.html",
+  "./assets/css/style.css",
+  "./assets/js/main.js",
+  "./assets/js/router.js",
+  "./assets/js/state.js",
+  "./assets/js/utils.js",
+  "./assets/js/auth.js",
+  "./assets/js/data.js",
+  "./assets/js/views/home.js",
+  "./assets/js/views/competitions.js",
+  "./assets/js/views/details.js",
+  "./assets/js/views/submit.js",
+  "./assets/js/views/dashboard.js",
+  "./assets/js/views/judge.js",
+  "./assets/js/views/admin.js",
+  "./assets/js/views/profile.js",
+  "./assets/js/views/about.js",
+  "./assets/js/views/privacy.js",
+  "./assets/js/views/terms.js",
+  "./assets/images/logo-musabaqa.svg",
+  "./assets/images/logo-vision.svg",
+  "./assets/images/logo-talabia.svg",
+  "./assets/images/icon-192.png",
+  "./assets/images/icon-512.png",
+  "./assets/images/favicon.png"
 ];
 
 self.addEventListener("install", (e) => {

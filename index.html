@@ -3,156 +3,89 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>منصة مسابقة</title>
-  <meta name="description" content="منصة مسابقة لإدارة المسابقات والجوائز والتسجيل بسهولة.">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="images/favicon.png">
+  <title>منصة مسابقة — الإصدار الاحترافي</title>
+  <meta name="description" content="منصة احترافية لإطلاق وإدارة المسابقات، التحكيم، والتتويج.">
   <meta name="theme-color" content="#0b7a6e">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/images/favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <script defer src="js/auth.js"></script>
-  <script defer src="js/app.js"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script defer type="module" src="assets/js/main.js"></script>
 </head>
 <body>
   <header class="header">
     <div class="container header__inner">
       <div class="brand">
-        <img src="images/logo-musabaqa.svg" alt="شعار مسابقة" class="brand__logo">
+        <img src="assets/images/logo-musabaqa.svg" alt="شعار مسابقة" class="brand__logo">
         <div class="brand__stack">
-          <img src="images/logo-vision.svg" alt="شعار رؤية 2030" class="brand__badge">
-          <img src="images/logo-talabia.svg" alt="شعار تلبية" class="brand__badge">
+          <img src="assets/images/logo-vision.svg" alt="شعار رؤية 2030" class="brand__badge">
+          <img src="assets/images/logo-talabia.svg" alt="شعار تلبية" class="brand__badge">
         </div>
       </div>
-      <nav class="nav">
-        <a href="#features">المزايا</a>
-        <a href="#competitions">المسابقات</a>
-        <a href="#faq">الأسئلة الشائعة</a>
-        <button id="authBtn" class="btn btn--ghost">دخول / تسجيل</button>
+      <nav class="nav" aria-label="روابط رئيسية">
+        <a data-link href="#/">الرئيسية</a>
+        <a data-link href="#/competitions">المسابقات</a>
+        <a data-link href="#/about">عن المنصة</a>
       </nav>
+      <div class="header__actions">
+        <button id="toggleTheme" class="btn btn--ghost" aria-label="تبديل النمط">🌓</button>
+        <button id="authBtn" class="btn btn--ghost">دخول / تسجيل</button>
+        <button id="installBtn" class="btn btn--light" hidden>تثبيت</button>
+      </div>
     </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <div class="container hero__grid">
-        <div>
-          <h1>أطلق مسابقاتك باحترافية</h1>
-          <p>إنشاء وإدارة المسابقات، التسجيل الذكي، التحكيم الشفاف، ولوحة بيانات لحظية — في مكان واحد.</p>
-          <div class="hero__cta">
-            <a class="btn" href="#competitions">تصفّح المسابقات</a>
-            <button class="btn btn--light" id="installBtn" hidden>تثبيت كتطبيق</button>
-          </div>
-          <ul class="hero__badges">
-            <li>متجاوبة للجوال</li>
-            <li>PWA</li>
-            <li>تحكيم عادل</li>
-          </ul>
-        </div>
-        <div class="hero__card">
-          <div class="kpi">
-            <div><strong id="kpi-users">1,284</strong><span>مشترك</span></div>
-            <div><strong id="kpi-competitions">24</strong><span>مسابقة نشطة</span></div>
-            <div><strong id="kpi-judges">67</strong><span>محكّم</span></div>
-          </div>
-          <img src="images/preview.png" alt="معاينة الواجهة" class="preview">
-        </div>
-      </div>
-    </section>
+  <aside class="subnav" id="roleNav" hidden>
+    <div class="container subnav__inner">
+      <nav class="role-tabs" aria-label="مسارات المستخدم">
+        <a data-link href="#/dashboard">لوحة المستخدم</a>
+        <a data-link href="#/judge" id="judgeTab" hidden>منطقة التحكيم</a>
+        <a data-link href="#/admin" id="adminTab" hidden>الإدارة</a>
+        <a data-link href="#/profile">ملفي</a>
+      </nav>
+      <div class="subnav__info" id="roleInfo"></div>
+    </div>
+  </aside>
 
-    <section class="section" id="features">
-      <div class="container">
-        <h2>لماذا مسابقة؟</h2>
-        <div class="grid-3">
-          <div class="card">
-            <h3>تسجيل سلس</h3>
-            <p>نموذج مُبسّط، رفع ملفات، ومتابعة الحالة — مع إشعارات فورية.</p>
-          </div>
-          <div class="card">
-            <h3>لوحة تحكيم</h3>
-            <p>توزيع تلقائي على المحكّمين، معايير تقييم قابلة للتخصيص، وتقارير فورية.</p>
-          </div>
-          <div class="card">
-            <h3>إدارة متكاملة</h3>
-            <p>أدوار وصلاحيات، تصدير بيانات، وجدولة زمنية لكل مرحلة.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="competitions">
-      <div class="container">
-        <div class="section__head">
-          <h2>المسابقات المفتوحة</h2>
-          <div class="filters">
-            <input type="search" id="searchInput" placeholder="ابحث بالعنوان أو الجهة المنظمة...">
-            <select id="categoryFilter">
-              <option value="">كل الفئات</option>
-              <option>ابتكار</option>
-              <option>تصميم</option>
-              <option>بحث علمي</option>
-              <option>أعمال</option>
-            </select>
-            <select id="statusFilter">
-              <option value="">الحالة</option>
-              <option value="open">مفتوحة</option>
-              <option value="closed">مغلقة</option>
-              <option value="soon">قريباً</option>
-            </select>
-          </div>
-        </div>
-
-        <div id="compList" class="grid-3">
-          <!-- Cards injected by JS -->
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="faq">
-      <div class="container">
-        <h2>الأسئلة الشائعة</h2>
-        <details>
-          <summary>كيف أسجّل في مسابقة؟</summary>
-          <p>اضغط زر "دخول / تسجيل" في الأعلى، ثم أنشئ حسابًا أو سجّل دخولك، وبعدها افتح صفحة المسابقة واضغط "شارك الآن".</p>
-        </details>
-        <details>
-          <summary>هل التحكيم تلقائي؟</summary>
-          <p>توزّع المشاركات تلقائيًا على المحكّمين وفق معاييرك، ويمكنك ضبط الأوزان والمعايير من لوحة الإدارة.</p>
-        </details>
-        <details>
-          <summary>هل تعمل المنصة كتطبيق على الجوال؟</summary>
-          <p>نعم، يمكنك تثبيتها كتطبيق (PWA) بالضغط على زر "تثبيت كتطبيق" أو من إعدادات المتصفح.</p>
-        </details>
-      </div>
-    </section>
+  <main id="app" class="app container" tabindex="-1" aria-live="polite">
+    <!-- صفحات الواجهة يتم حقنها ديناميكيًا هنا -->
+    <noscript>المنصة تتطلب تفعيل JavaScript.</noscript>
   </main>
 
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
-        <img src="images/logo-musabaqa.svg" alt="شعار مسابقة" class="brand__logo">
-        <p>© <span id="year"></span> مسابقة — كل الحقوق محفوظة</p>
+        <img src="assets/images/logo-musabaqa.svg" alt="شعار مسابقة" class="brand__logo">
+        <p>© <span id="year"></span> مسابقة — إصدار احترافي</p>
       </div>
       <div class="footer__links">
-        <a href="#">سياسة الخصوصية</a>
-        <a href="#">الشروط والأحكام</a>
+        <a href="#/privacy" data-link>الخصوصية</a>
+        <a href="#/terms" data-link>الشروط</a>
         <a href="mailto:support@musabaqa.example">الدعم</a>
       </div>
     </div>
   </footer>
 
-  <!-- Auth Modal -->
+  <!-- نافذة الدخول/التسجيل -->
   <dialog id="authModal" class="modal">
     <form method="dialog" class="modal__content" id="authForm">
       <button class="modal__close" value="close" aria-label="إغلاق">×</button>
       <h3 id="authTitle">إنشاء حساب</h3>
 
       <label>البريد الإلكتروني
-        <input type="email" id="email" placeholder="name@example.com" required>
+        <input type="email" id="email" placeholder="name@example.com" required autocomplete="username">
       </label>
 
       <label>كلمة المرور
-        <input type="password" id="password" minlength="6" placeholder="******" required>
+        <input type="password" id="password" minlength="6" placeholder="******" required autocomplete="current-password">
+      </label>
+
+      <label>الدور (يؤثر على الواجهة)
+        <select id="role">
+          <option value="participant">مشارك</option>
+          <option value="judge">محكّم</option>
+          <option value="admin">مدير</option>
+        </select>
       </label>
 
       <div class="row">
