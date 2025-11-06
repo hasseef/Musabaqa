@@ -1,22 +1,21 @@
-# Musabaqa Platform — Production (Next.js 14 + Prisma + Tailwind)
+# منصة مسابقة — نسخة واجهة جاهزة للنشر على GitHub Pages
 
-## تشغيل محليًا
+هذه النسخة ثابتة (Static) مع مصادقة شكلية عبر localStorage لأغراض العرض فقط.
+- متوافقة مع الجوال + تدعم PWA.
+- تم تضمين شعارات: مسابقة، الرؤية 2030، تلبية (مكان حفظها: `images/`).
+- تمت إزالة أي عبارة "متوافق مع رؤية 2030" من الهيدر.
+- يمكنك تغيير الشعارات لاحقًا باستبدال الملفات بنفس الأسماء.
+
+## البدء محليًا
+افتح `index.html` مباشرة أو شغل خادم بسيط:
 ```bash
-pnpm i
-cp .env.example .env
-npx prisma generate
-npx prisma migrate dev --name init
-pnpm prisma:seed
-pnpm dev
+python3 -m http.server 8080
+# ثم افتح http://localhost:8080
 ```
 
-## نشر على Vercel
-- اربط المستودع
-- أضف `DATABASE_URL` (SQLite أو Postgres)
-- نفّذ البناء
+> ملاحظة: لتعمل الخدمة Service Worker وميزة التثبيت كتطبيق، يفضّل التشغيل عبر خادم محلي أو عبر GitHub Pages.
 
-## API
-- GET/POST `/api/competitions`
-- GET/POST `/api/opportunities`
-- GET `/api/kpis`
-- POST `/api/ai/generate-questions`
+## النشر على GitHub Pages
+- ارفع كل محتويات المجلد إلى المستودع `hasseef/hasseef.github.io` ضمن المسار `Musabaqa/` بحيث يصبح الرابط: `https://hasseef.github.io/Musabaqa/`.
+- تأكد من تفعيل Pages.
+- إن رغبت بجعل المسار الجذري يعمل مع Service Worker، حدث مسار `start_url` وملف `sw.js` وفق المسار.

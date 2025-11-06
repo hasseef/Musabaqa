@@ -1,141 +1,171 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>مسابقة — منصة المسابقات</title>
-  <link rel="stylesheet" href="style.css"/>
-  <link rel="manifest" href="manifest.json"/>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>منصة مسابقة</title>
+  <meta name="description" content="منصة مسابقة لإدارة المسابقات والجوائز والتسجيل بسهولة.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="images/favicon.png">
+  <meta name="theme-color" content="#0b7a6e">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="js/auth.js"></script>
+  <script defer src="js/app.js"></script>
 </head>
 <body>
-<header>
-  <div class="container header-row">
-    <div class="brand">
-      <img src="assets/Musabaqa_logo_colored.svg" alt="مسابقة" width="120"/>
-      <span class="pill">متوافق مع رؤية 2030</span>
-    </div>
-    <nav class="nav">
-      <a href="#home" class="active">الواجهة</a>
-      <a href="#individual">فرد</a>
-      <a href="#entity">جهة</a>
-      <a href="#sponsor">راعٍ</a>
-      <a href="#investor">المستثمر</a>
-      <a href="#admin">الإدارة</a>
-    </nav>
-    <div style="display:flex;align-items:center;gap:8px;opacity:.85">
-      <img src="assets/Vision2030.png" alt="Vision2030" width="84" height="28"/>
-      <img src="assets/Talabiya.png" alt="Talabiya" width="84" height="28"/>
-      <a class="btn" href="#admin">تسجيل الدخول</a>
-    </div>
-  </div>
-</header>
-
-<main class="container">
-  <section id="view-home">
-    <div class="grid-2">
-      <div>
-        <span class="pill">هوية جديدة • متوافقة مع رؤية 2030</span>
-        <h1>مسابقة — خيارك الأمثل للمسابقات <span style="color:#1B9E4B">التوعوية</span> و <span style="color:#1D4ED8">التسويقية</span></h1>
-        <p class="small">استهداف دقيق + فيديوهات قصيرة + رمز دخول من الفيديو + مشاركة داخلية وخارجية + نظام نقاط.</p>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
-          <a class="btn btn-accent" href="#individual">ابدأ التحدي (فرد)</a>
-          <a class="btn" href="#entity">للجهات الحكومية/غير الربحية</a>
-          <a class="btn" href="#sponsor">للرعاة والشركات</a>
-          <a class="btn" href="#investor">لوحة المستثمر</a>
-        </div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
-          <span class="pill">استهداف دقيق</span>
-          <span class="pill">رمز من الفيديو</span>
-          <span class="pill">نقاط وولاء</span>
-          <span class="pill">تقارير ROI</span>
+  <header class="header">
+    <div class="container header__inner">
+      <div class="brand">
+        <img src="images/logo-musabaqa.svg" alt="شعار مسابقة" class="brand__logo">
+        <div class="brand__stack">
+          <img src="images/logo-vision.svg" alt="شعار رؤية 2030" class="brand__badge">
+          <img src="images/logo-talabia.svg" alt="شعار تلبية" class="brand__badge">
         </div>
       </div>
-      <div class="kpis" id="kpis"></div>
+      <nav class="nav">
+        <a href="#features">المزايا</a>
+        <a href="#competitions">المسابقات</a>
+        <a href="#faq">الأسئلة الشائعة</a>
+        <button id="authBtn" class="btn btn--ghost">دخول / تسجيل</button>
+      </nav>
     </div>
+  </header>
 
-    <h2 style="margin-top:14px">مسابقات مميزة</h2>
-    <div class="grid-2" id="cards"></div>
-  </section>
-
-  <section id="view-individual" class="hidden">
-    <h2>لوحة الفرد</h2>
-    <p class="small">شارك في المسابقات المطابقة لاستهدافك، واجمع النقاط.</p>
-    <div class="grid-2" id="cards-individual"></div>
-  </section>
-
-  <section id="view-entity" class="hidden">
-    <h2>إنشاء مسابقة (جهة حكومية/غير ربحية)</h2>
-    <div class="grid-2">
-      <div class="card">
-        <div class="grid-2">
-          <input id="f-title" placeholder="عنوان المسابقة"/>
-          <select id="f-type"><option>توعوية</option><option>تسويقية</option></select>
-          <input id="f-city" placeholder="المدينة"/>
-          <input id="f-prize" type="number" placeholder="قيمة الجائزة (ر.س)"/>
-          <input id="f-winners" type="number" placeholder="عدد الفائزين" value="1"/>
-          <label class="small"><input type="checkbox" id="f-requires"/> تفعيل اشتراط الرمز (من الفيديو)</label>
+  <main>
+    <section class="hero">
+      <div class="container hero__grid">
+        <div>
+          <h1>أطلق مسابقاتك باحترافية</h1>
+          <p>إنشاء وإدارة المسابقات، التسجيل الذكي، التحكيم الشفاف، ولوحة بيانات لحظية — في مكان واحد.</p>
+          <div class="hero__cta">
+            <a class="btn" href="#competitions">تصفّح المسابقات</a>
+            <button class="btn btn--light" id="installBtn" hidden>تثبيت كتطبيق</button>
+          </div>
+          <ul class="hero__badges">
+            <li>متجاوبة للجوال</li>
+            <li>PWA</li>
+            <li>تحكيم عادل</li>
+          </ul>
         </div>
-        <div class="card" style="margin-top:8px">
-          <div class="small" id="f-asset">لم يتم رفع مرفق بعد</div>
-          <input id="f-asset-input" type="file" accept="video/*,image/*,application/pdf"/>
-        </div>
-        <div style="display:flex;gap:8px;margin-top:8px">
-          <button class="btn btn-accent" id="f-submit">نشر داخل المنصة (عام)</button>
-          <button class="btn">نشر للفئة المستهدفة فقط</button>
+        <div class="hero__card">
+          <div class="kpi">
+            <div><strong id="kpi-users">1,284</strong><span>مشترك</span></div>
+            <div><strong id="kpi-competitions">24</strong><span>مسابقة نشطة</span></div>
+            <div><strong id="kpi-judges">67</strong><span>محكّم</span></div>
+          </div>
+          <img src="images/preview.png" alt="معاينة الواجهة" class="preview">
         </div>
       </div>
+    </section>
 
-      <div class="card">
-        <div style="display:flex;align-items:center;justify-content:space-between">
-          <b>مساعد إنشاء الأسئلة (ذكاء اصطناعي)</b>
-          <button class="btn-primary" id="ai-generate">توليد أسئلة</button>
+    <section class="section" id="features">
+      <div class="container">
+        <h2>لماذا مسابقة؟</h2>
+        <div class="grid-3">
+          <div class="card">
+            <h3>تسجيل سلس</h3>
+            <p>نموذج مُبسّط، رفع ملفات، ومتابعة الحالة — مع إشعارات فورية.</p>
+          </div>
+          <div class="card">
+            <h3>لوحة تحكيم</h3>
+            <p>توزيع تلقائي على المحكّمين، معايير تقييم قابلة للتخصيص، وتقارير فورية.</p>
+          </div>
+          <div class="card">
+            <h3>إدارة متكاملة</h3>
+            <p>أدوار وصلاحيات، تصدير بيانات، وجدولة زمنية لكل مرحلة.</p>
+          </div>
         </div>
-        <div class="grid-3" style="margin-top:8px">
-          <input id="ai-topic" placeholder="الموضوع" value="الأمن السيبراني"/>
-          <input id="ai-count" type="number" min="1" max="10" value="3"/>
-          <div class="pill">الصعوبة: متوسط</div>
+      </div>
+    </section>
+
+    <section class="section" id="competitions">
+      <div class="container">
+        <div class="section__head">
+          <h2>المسابقات المفتوحة</h2>
+          <div class="filters">
+            <input type="search" id="searchInput" placeholder="ابحث بالعنوان أو الجهة المنظمة...">
+            <select id="categoryFilter">
+              <option value="">كل الفئات</option>
+              <option>ابتكار</option>
+              <option>تصميم</option>
+              <option>بحث علمي</option>
+              <option>أعمال</option>
+            </select>
+            <select id="statusFilter">
+              <option value="">الحالة</option>
+              <option value="open">مفتوحة</option>
+              <option value="closed">مغلقة</option>
+              <option value="soon">قريباً</option>
+            </select>
+          </div>
         </div>
-        <div id="ai-list" style="margin-top:8px"></div>
+
+        <div id="compList" class="grid-3">
+          <!-- Cards injected by JS -->
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <h2>الأسئلة الشائعة</h2>
+        <details>
+          <summary>كيف أسجّل في مسابقة؟</summary>
+          <p>اضغط زر "دخول / تسجيل" في الأعلى، ثم أنشئ حسابًا أو سجّل دخولك، وبعدها افتح صفحة المسابقة واضغط "شارك الآن".</p>
+        </details>
+        <details>
+          <summary>هل التحكيم تلقائي؟</summary>
+          <p>توزّع المشاركات تلقائيًا على المحكّمين وفق معاييرك، ويمكنك ضبط الأوزان والمعايير من لوحة الإدارة.</p>
+        </details>
+        <details>
+          <summary>هل تعمل المنصة كتطبيق على الجوال؟</summary>
+          <p>نعم، يمكنك تثبيتها كتطبيق (PWA) بالضغط على زر "تثبيت كتطبيق" أو من إعدادات المتصفح.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img src="images/logo-musabaqa.svg" alt="شعار مسابقة" class="brand__logo">
+        <p>© <span id="year"></span> مسابقة — كل الحقوق محفوظة</p>
+      </div>
+      <div class="footer__links">
+        <a href="#">سياسة الخصوصية</a>
+        <a href="#">الشروط والأحكام</a>
+        <a href="mailto:support@musabaqa.example">الدعم</a>
       </div>
     </div>
-  </section>
+  </footer>
 
-  <section id="view-sponsor" class="hidden">
-    <h2>سوق الرعايات</h2>
-    <p class="small">اختر رعاية مناسبة لعلامتك وتمّم الاتفاق مباشرة (اختبارياً).</p>
-    <div class="grid-2" id="ops"></div>
-  </section>
+  <!-- Auth Modal -->
+  <dialog id="authModal" class="modal">
+    <form method="dialog" class="modal__content" id="authForm">
+      <button class="modal__close" value="close" aria-label="إغلاق">×</button>
+      <h3 id="authTitle">إنشاء حساب</h3>
 
-  <section id="view-investor" class="hidden">
-    <h2>لوحة المستثمر</h2>
-    <div class="card">مؤشرات الأداء العام، وقيمة الجوائز والإيرادات — (عرض تجريبي في نسخة GitHub Pages).</div>
-  </section>
+      <label>البريد الإلكتروني
+        <input type="email" id="email" placeholder="name@example.com" required>
+      </label>
 
-  <section id="view-admin" class="hidden">
-    <h2>لوحة الإدارة</h2>
-    <div class="card">هذه نسخة استعراضية ثابتة (GitHub Pages). النسخة الإنتاجية الكاملة تتطلب خادم/قاعدة بيانات.</div>
-  </section>
-</main>
+      <label>كلمة المرور
+        <input type="password" id="password" minlength="6" placeholder="******" required>
+      </label>
 
-<div class="bottom-nav">
-  <a href="#home" class="active">الواجهة</a>
-  <a href="#individual">فرد</a>
-  <a href="#entity">جهة</a>
-  <a href="#sponsor">راعٍ</a>
-  <a href="#investor">مستثمر</a>
-</div>
+      <div class="row">
+        <label class="checkbox">
+          <input type="checkbox" id="isNew" checked>
+          <span>حساب جديد</span>
+        </label>
+        <a href="#" id="toggleAuth" class="link">لدي حساب</a>
+      </div>
 
-<footer>
-  <div class="container foot">
-    <span>© Musabaqa 2025 — جميع الحقوق محفوظة</span>
-    <a href="manifest.json">PWA</a>
-  </div>
-</footer>
-
-<script src="app.js"></script>
-<script>
-  if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js') }
-  render()
-</script>
+      <button class="btn" id="submitAuth">متابعة</button>
+      <p class="note">* لأغراض العرض فقط: يتم الحفظ محليًا في المتصفح.</p>
+    </form>
+  </dialog>
 </body>
 </html>
