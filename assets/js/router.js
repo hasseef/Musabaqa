@@ -1,0 +1,27 @@
+
+const routes = new Map();
+
+export function route(path, loader){
+  routes.set(path, loader);
+}
+
+export function startRouter(){
+  window.addEventListener("hashchange", render);
+  document.addEventListener("DOMContentLoaded", render);
+}
+
+export async function render(){
+  const outlet = document.getElementById("app");
+  const path = location.hash.replace(/^#/, '') || '/';
+  const [routePath, ...rest] = path.split('/').filter(Boolean);
+  const key = '/' + (routePath ?? '');
+  const loader = routes.get(key) || routes.get('*');
+  try{
+    outlet.innerHTML = '<div class="card" aria-busy="true">جارٍ التحميل…</div>';
+    const html = await loader(rest);
+    outlet.innerHTML = html;
+    outlet.focus({ preventScroll: false });
+  }catch(err){
+    outlet.innerHTML = `<div class="card"><h3>خطأ</h3><p class="muted">${err.message}</p></div>`;
+  }
+}
