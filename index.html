@@ -1,132 +1,0 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
-  <title>منصة مسابقة — نسخة GitHub Pages</title>
-  <meta name="theme-color" content="#0b7a6e">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="assets/images/favicon.png">
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=1762480671">
-  <script defer type="module" src="assets/js/main.js?v=1762480671"></script>
-</head>
-<body>
-  <a class="skip" href="#app">تجاوز إلى المحتوى</a>
-  <header class="header">
-    <div class="container header__inner">
-      <div class="brand">
-        <img src="assets/images/logo-musabaqa.svg" alt="شعار مسابقة" class="brand__logo" height="40" width="220">
-        <div class="brand__stack">
-          <img src="assets/images/logo-vision.svg" alt="شعار رؤية 2030" class="brand__badge" height="30" width="120">
-          <img src="assets/images/logo-talabia.svg" alt="شعار تلبية" class="brand__badge" height="30" width="120">
-        </div>
-      </div>
-      <nav class="nav" aria-label="روابط رئيسية">
-        <a data-link href="#/">الرئيسية</a>
-        <a data-link href="#/competitions">المسابقات</a>
-        <a data-link href="#/about">عن المنصة</a>
-      </nav>
-      <div class="header__actions">
-        <button id="toggleTheme" class="btn btn--ghost" aria-label="تبديل النمط">🌓</button>
-        <button id="authBtn" class="btn btn--ghost">دخول / تسجيل</button>
-        <button id="installBtn" class="btn btn--light" hidden>تثبيت</button>
-      </div>
-    </div>
-  </header>
-
-  <aside class="subnav" id="roleNav" hidden>
-    <div class="container subnav__inner">
-      <nav class="role-tabs" aria-label="مسارات المستخدم">
-        <a data-link href="#/dashboard">لوحة المستخدم</a>
-        <a data-link href="#/judge" id="judgeTab" hidden>التحكيم</a>
-        <a data-link href="#/admin" id="adminTab" hidden>الإدارة</a>
-        <a data-link href="#/prizes" id="prizeTab" hidden>استلام الجوائز</a>
-        <a data-link href="#/media" id="mediaTab" hidden>المركز الإعلامي</a>
-        <a data-link href="#/wallet" id="walletTab" hidden>المحفظة والفواتير</a>
-        <a data-link href="#/sponsor" id="sponsorTab" hidden>مركز الرعاة</a>
-        <a data-link href="#/sponsor-market" id="marketTab" hidden>سوق الرعايات</a>
-        <a data-link href="#/profile">ملفي</a>
-      </nav>
-      <div class="subnav__info" id="roleInfo"></div>
-    </div>
-  </aside>
-
-  <main id="app" class="app container" tabindex="-1" aria-live="polite">
-    <noscript>المنصة تتطلب تفعيل JavaScript.</noscript>
-  </main>
-
-  <nav class="bottom-nav" aria-label="التنقل السفلي">
-    <div class="bn__inner container">
-      <a data-link href="#/" id="bn-home">🏠<small>الرئيسية</small></a>
-      <a data-link href="#/competitions" id="bn-comps">🏆<small>المسابقات</small></a>
-      <a data-link href="#/dashboard" id="bn-dash">📊<small>لوحتي</small></a>
-      <a data-link href="#/profile" id="bn-prof">👤<small>ملفي</small></a>
-    </div>
-  </nav>
-
-  <footer class="footer">
-    <div class="container footer__inner">
-      <div class="footer__brand">
-        <img src="assets/images/logo-musabaqa.svg" alt="شعار مسابقة" class="brand__logo" height="40" width="220">
-        <p>© <span id="year"></span> مسابقة — GitHub Pages</p>
-      </div>
-      <div class="footer__links">
-        <a href="#/privacy" data-link>الخصوصية</a>
-        <a href="#/terms" data-link>الشروط</a>
-      </div>
-    </div>
-  </footer>
-
-  <dialog id="authModal" class="modal">
-    <form method="dialog" class="modal__content" id="authForm">
-      <button class="modal__close" value="close" aria-label="إغلاق">×</button>
-      <h3 id="authTitle">تسجيل الدخول</h3>
-
-      <label>اسم المستخدم
-        <input type="text" id="email" placeholder="admin" required autocomplete="username">
-      </label>
-
-      <label>كلمة المرور
-        <input type="password" id="password" minlength="4" placeholder="M1234" required autocomplete="current-password">
-      </label>
-
-      <label>نوع الحساب (واجهة موحّدة للجميع)
-        <select id="accountType">
-          <option value="individual">الأفراد</option>
-          <option value="sponsor">الرعاة</option>
-          <option value="government">الجهات الحكومية</option>
-          <option value="nonprofit">الجهات غير الربحية</option>
-          <option value="company">الشركات</option>
-          <option value="investor">المستثمرين</option>
-        </select>
-      </label>
-
-      <label>الدور (يحدد الصلاحيات)
-        <select id="role">
-          <option value="participant">مشارك</option>
-          <option value="judge">محكّم</option>
-          <option value="admin">مدير</option>
-        </select>
-      </label>
-
-      <div class="row" id="quickLogins">
-        <button type="button" class="btn btn--light" data-role="participant">دخول سريع (مشارك)</button>
-        <button type="button" class="btn btn--light" data-role="judge">دخول سريع (محكّم)</button>
-        <button type="button" class="btn btn--light" data-role="admin">دخول سريع (مدير)</button>
-      </div>
-
-      <div class="row">
-        <label class="checkbox">
-          <input type="checkbox" id="isNew">
-          <span>إنشاء حساب جديد</span>
-        </label>
-        <a href="#" id="toggleAuth" class="link">لدي حساب</a>
-      </div>
-
-      <button class="btn" id="submitAuth">متابعة</button>
-      <p class="note">دخول تجريبي: <b>admin / M1234</b> مع اختيار نوع الحساب والدور.</p>
-    </form>
-  </dialog>
-</body>
-</html>
