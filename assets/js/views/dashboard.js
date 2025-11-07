@@ -1,0 +1,1 @@
+export default function Dashboard(){return `<div class='card'><h3>لوحة المستخدم</h3><p>نماذج.</p></div>`;}

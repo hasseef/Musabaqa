@@ -1,0 +1,1 @@
+export default function Judge(){return `<div class='card'><h3>التحكيم</h3><p>نموذج.</p></div>`;}

@@ -1,0 +1,1 @@
+export default function Profile(){return `<div class='card'><h3>ملفي</h3></div>`;}

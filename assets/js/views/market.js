@@ -1,0 +1,1 @@
+export default function Market(){return `<div class='card'><h3>سوق الرعايات</h3></div>`;}

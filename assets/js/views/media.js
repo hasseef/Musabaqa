@@ -1,0 +1,1 @@
+export default function MediaHub(){return `<div class='card'><h3>المركز الإعلامي</h3></div>`;}

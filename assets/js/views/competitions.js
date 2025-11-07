@@ -1,0 +1,1 @@
+export default function Competitions(){return `<div class='card'><h3>المسابقات</h3><p>نموذج مبسّط.</p></div>`;}

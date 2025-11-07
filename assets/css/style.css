@@ -1,0 +1,23 @@
+
+:root{ --bg:#f6f8f7; --card:#ffffff; --ink:#0e1b18; --muted:#5b6d68; --brand:#006C35; --brand-2:#009A44; --shadow:0 10px 30px rgba(0,0,0,.08); --radius:18px; --focus:#009688; }
+:root.dark{ --bg:#0f201d; --card:#122a25; --ink:#e2f1ed; --muted:#a8c1ba; --shadow:0 10px 30px rgba(0,0,0,.4); }
+*{box-sizing:border-box} html,body{height:100%} body{ margin:0;background:var(--bg);color:var(--ink); font-family:"Tajawal", system-ui, -apple-system, Segoe UI, Roboto, Arial; padding-bottom:72px }
+.container{width:min(1200px,92vw);margin-inline:auto}
+.header{position:sticky;top:0;z-index:60;background:var(--card);box-shadow:var(--shadow);backdrop-filter:saturate(140%) blur(6px)}
+.header__inner{display:flex;align-items:center;justify-content:space-between;padding:10px 8px;gap:10px}
+.brand{display:flex;align-items:center;gap:14px;min-width:0}
+.brand__logo{height:40px;width:auto} .brand__badge{height:30px;width:auto;opacity:.95}
+.nav{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.header__actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.btn{background:linear-gradient(180deg,var(--brand),var(--brand-2));color:#fff;border:0;border-radius:16px;padding:10px 16px;font-weight:800;cursor:pointer;box-shadow:var(--shadow);min-height:44px}
+.btn--light{background:#e9f5f3;color:var(--brand)} .btn--ghost{background:transparent;border:2px solid #d9e7e4;color:var(--brand);box-shadow:none}
+.subnav{background:linear-gradient(180deg,#ecfaf7,transparent);border-bottom:1px solid #dbe7e4}
+.subnav__inner{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 0}
+.role-tabs{display:flex;gap:12px;flex-wrap:wrap}
+.app{min-height:60vh;padding:20px 0}
+.grid{display:grid;gap:16px} .grid-3{grid-template-columns:repeat(3,1fr)} .grid-2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--card);padding:16px;border-radius:var(--radius);box-shadow:var(--shadow)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px} .kpis .kpi{background:#f0f7f5;border-radius:12px;padding:12px;text-align:center} .kpis .kpi strong{display:block;font-size:22px}
+.table{width:100%;border-collapse:separate;border-spacing:0 8px} .table th,.table td{padding:10px 12px} .table tr{background:var(--card);box-shadow:var(--shadow)}
+.footer{background:#0f201d;color:#cfe5df}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid #dbe7e4;z-index:70} .bottom-nav .bn__inner{display:flex;justify-content:space-around;align-items:center;padding:8px 6px}

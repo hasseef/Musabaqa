@@ -1,0 +1,1 @@
+export default function Home(){return `<div class='card'><h2>مرحبًا بك</h2><p>استخدم دخول admin/M1234 ثم انتقل إلى لوحة المدير المتقدمة.</p></div>`;}

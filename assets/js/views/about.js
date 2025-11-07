@@ -1,0 +1,1 @@
+export default function About(){return `<div class='card'><h3>عن المنصة</h3><p>نسخة مع لوحة مدير متقدمة.</p></div>`;}

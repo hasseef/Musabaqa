@@ -1,0 +1,1 @@
+export default function Wallet(){return `<div class='card'><h3>المحفظة</h3></div>`;}
