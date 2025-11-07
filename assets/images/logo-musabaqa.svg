@@ -1,5 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="220" height="60" viewBox="0 0 220 60" role="img" aria-label="مسابقة">
-  <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#006C35"/><stop offset="1" stop-color="#009A44"/></linearGradient></defs>
-  <rect rx="12" width="220" height="60" fill="url(#g)"/>
-  <text x="110" y="38" font-size="28" text-anchor="middle" font-family="Tajawal, Arial" fill="#fff">مسابقة</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="60" viewBox="0 0 220 60"><rect rx="12" width="220" height="60" fill="#006C35"/><text x="110" y="38" font-size="28" text-anchor="middle" font-family="Tajawal, Arial" fill="#fff">مسابقة</text></svg>

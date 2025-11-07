@@ -1,5 +1,5 @@
 
-import { wallet, createInvoice, markInvoicePaid } from '../data.js';
+import { wallet, createInvoice, markInvoicePaid, markInvoicePending } from '../data.js';
 import { fmtDate } from '../utils.js';
 export default function Wallet(){
   const w = wallet();

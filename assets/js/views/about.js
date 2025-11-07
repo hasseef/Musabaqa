@@ -1,1 +1,1 @@
-export default function About(){return `<section class='grid'><div class='card'><h2>عن المنصة</h2><p>واجهة موحّدة لكل الحسابات، logos (مسابقة + تلبية + رؤية 2030)، استجابة عالية للجوال والكمبيوتر، رعايات موجهة وباقات عامة، تمويل ذاتي، ونسبة منصة ≤5%.</p></div></section>`;}
+export default function About(){return `<section class='grid'><div class='card'><h2>عن المنصة</h2><p>هذه النسخة مضبوطة لمسار GitHub Pages: /Musabaqa/ مع PWA وكسر كاش تلقائي.</p></div></section>`;}
