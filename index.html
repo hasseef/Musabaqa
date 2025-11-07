@@ -3,8 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>منصة مسابقة — إصدار الجوال الاحترافي</title>
-  <meta name="description" content="إطلاق وإدارة مسابقات باحترافية — يدعم التحكيم، وسائط، ملصقات، وأسئلة باختيار الإجابة الصحيحة.">
+  <title>منصة مسابقة — الإصدار النهائي</title>
   <meta name="theme-color" content="#0b7a6e">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="assets/images/favicon.png">
@@ -39,8 +38,9 @@
     <div class="container subnav__inner">
       <nav class="role-tabs" aria-label="مسارات المستخدم">
         <a data-link href="#/dashboard">لوحة المستخدم</a>
-        <a data-link href="#/judge" id="judgeTab" hidden>منطقة التحكيم</a>
+        <a data-link href="#/judge" id="judgeTab" hidden>التحكيم</a>
         <a data-link href="#/admin" id="adminTab" hidden>الإدارة</a>
+        <a data-link href="#/prizes" id="prizeTab" hidden>استلام الجوائز</a>
         <a data-link href="#/profile">ملفي</a>
       </nav>
       <div class="subnav__info" id="roleInfo"></div>
@@ -64,17 +64,15 @@
     <div class="container footer__inner">
       <div class="footer__brand">
         <img src="assets/images/logo-musabaqa.svg" alt="شعار مسابقة" class="brand__logo">
-        <p>© <span id="year"></span> مسابقة — إصدار احترافي</p>
+        <p>© <span id="year"></span> مسابقة — إصدار نهائي</p>
       </div>
       <div class="footer__links">
         <a href="#/privacy" data-link>الخصوصية</a>
         <a href="#/terms" data-link>الشروط</a>
-        <a href="mailto:support@musabaqa.example">الدعم</a>
       </div>
     </div>
   </footer>
 
-  <!-- نافذة الدخول/التسجيل -->
   <dialog id="authModal" class="modal">
     <form method="dialog" class="modal__content" id="authForm">
       <button class="modal__close" value="close" aria-label="إغلاق">×</button>
@@ -88,7 +86,18 @@
         <input type="password" id="password" minlength="4" placeholder="M1234" required autocomplete="current-password">
       </label>
 
-      <label>نوع الحساب (يحدد الواجهة بعد الدخول)
+      <label>نوع الحساب (واجهة موحّدة للجميع)
+        <select id="accountType">
+          <option value="individual">الأفراد</option>
+          <option value="sponsor">الرعاة</option>
+          <option value="government">الجهات الحكومية</option>
+          <option value="nonprofit">الجهات غير الربحية</option>
+          <option value="company">الشركات</option>
+          <option value="investor">المستثمرين</option>
+        </select>
+      </label>
+
+      <label>الدور (يحدد الصلاحيات)
         <select id="role">
           <option value="participant">مشارك</option>
           <option value="judge">محكّم</option>
@@ -111,7 +120,7 @@
       </div>
 
       <button class="btn" id="submitAuth">متابعة</button>
-      <p class="note">* دخول تجريبي: اسم المستخدم <strong>admin</strong>، كلمة المرور <strong>M1234</strong>.</p>
+      <p class="note">دخول تجريبي: <b>admin / M1234</b> مع اختيار نوع الحساب والدور.</p>
     </form>
   </dialog>
 </body>
