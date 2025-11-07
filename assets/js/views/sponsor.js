@@ -12,7 +12,7 @@ export default function SponsorCenter(){
             <li>فضية — إبراز في تفاصيل المسابقة</li>
             <li>برونزية — شارة راعي في قائمة المسابقات</li>
           </ul>
-          <a class='btn' href='#/wallet'>إتمام الدفع (فاتورة)</a>
+          <a class='btn' href='#/wallet'>إتمام الدفع (فاتورة)</a> <a class='btn btn--light' href='#/sponsor-reports'>تقارير الرعاة</a>
         </div>
         <div class='card'>
           <h3>مؤشرات مبدئية</h3>

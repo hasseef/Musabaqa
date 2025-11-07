@@ -31,8 +31,9 @@ export const markWinner=(submId,isWinner=true)=>{const arr=submissions(); const 
 
 // Wallet & invoices
 export const INVOICE_TYPES={ SPONSOR_PLEDGE:'SPONSOR_PLEDGE', SPONSOR_PACKAGE:'SPONSOR_PACKAGE', SELF_FUND:'SELF_FUND' };
-export function createInvoice(payload){ const w=wallet(); w.invoices.push({ id: uid(), status: payload.status||'unpaid', createdAt: Date.now(), ...payload }); saveWallet(w); }
+export function createInvoice(payload){ const w=wallet(); w.invoices.push({ id: uid(), status: payload.status||'unpaid', createdAt: Date.now(), paymentMethod: payload.paymentMethod||null, paymentUrl: payload.paymentUrl||null, ...payload }); saveWallet(w); }
 export function markInvoicePaid(id){ const w=wallet(); const i=w.invoices.findIndex(x=>x.id===id); if(i>-1){ w.invoices[i].status='paid'; w.invoices[i].paidAt=Date.now(); w.balance+=Number(w.invoices[i].amount||0); saveWallet(w);} }
+export function markInvoicePending(id, method){ const w=wallet(); const i=w.invoices.findIndex(x=>x.id===id); if(i>-1){ w.invoices[i].status='pending'; w.invoices[i].paymentMethod=method; w.invoices[i].paymentUrl = w.invoices[i].paymentUrl || ('https://pay.example/'+id); saveWallet(w);} }
 
 // Sponsorship pledges
 export function createPledge({compId, sponsorEmail, amount, visibilityTier='bronze', note=''}){
