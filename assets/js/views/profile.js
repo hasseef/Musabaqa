@@ -7,7 +7,7 @@ export default function Profile(){
   return `<section class="grid">
     <div class="card">
       <h2>الملف الشخصي</h2>
-      <p><strong>البريد:</strong> ${u.email}</p>
+      <p><strong>المستخدم:</strong> ${u.email}</p>
       <p><strong>الدور:</strong> ${labelRole(u.role)}</p>
       <div class="row">
         <button class="btn btn--light" id="logout">تسجيل الخروج</button>

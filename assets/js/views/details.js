@@ -13,12 +13,15 @@ export default function Details([id]){
         <p class="muted">${c.org} • ${c.category}</p>
         <p>${c.brief}</p>
         <p><strong>آخر موعد:</strong> ${fmtDate(c.deadline)}</p>
+        <p class="muted">${c.requiresCode ? '🔐 هذه المسابقة تتطلب رمزًا من مرفق المنظّم لفتح نموذج الأسئلة.' : ''}</p>
         <a class="btn" href="#/submit/${c.id}">قدّم مشاركتك</a>
       </div>
       <div class="card">
         <h3>معايير التحكيم</h3>
         <ul>${rubric}</ul>
       </div>
+      ${c.videoUrl ? `<div class="card"><h3>مقطع تعريفي</h3><video controls playsinline style="width:100%;border-radius:12px"><source src="${c.videoUrl}"></video></div>` : ''}
+      ${c.stickers?.length ? `<div class="card"><h3>ملصقات</h3><div class="row">` + c.stickers.map(s=>`<span class="badge">${s}</span>`).join('') + `</div></div>` : ''}
     </section>
   `;
 }

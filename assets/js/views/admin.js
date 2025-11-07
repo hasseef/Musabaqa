@@ -1,6 +1,6 @@
 
 import { getAuth } from '../auth.js';
-import { comps, createComp, saveComps, submissions, scores } from '../data.js';
+import { comps, createComp, submissions, scores } from '../data.js';
 import { fmtDate, downloadFile } from '../utils.js';
 
 export default function Admin(){
@@ -35,9 +35,14 @@ export default function Admin(){
         </label>
         <label>آخر موعد<input class="input" name="deadline" type="date" required></label>
         <label>وصف موجز<textarea name="brief" required></textarea></label>
-        <label>معايير (صيغة: الاسم:الوزن مفصولة بفواصل) 
-          <input class="input" name="rubric" placeholder="الأثر:0.4,الجدوى:0.3,الابتكار:0.3">
+        <label>يتطلب رمز فتح الأسئلة؟
+          <select name="requiresCode"><option value="false">لا</option><option value="true">نعم</option></select>
         </label>
+        <label>الرمز (إن وجد)<input class="input" name="code" placeholder="مثال: 1234"></label>
+        <label>رابط فيديو تعريفي (اختياري)<input class="input" name="videoUrl" placeholder="https://...mp4"></label>
+        <label>ملصقات مفصولة بفواصل<input class="input" name="stickers" placeholder="🔥,✨"></label>
+        <label>معايير (الاسم:الوزن مفصولة بفواصل) <input class="input" name="rubric" placeholder="الأثر:0.4,الجدوى:0.3,الابتكار:0.3"></label>
+        <label>أسئلة (صيغة مبسطة) <textarea name="form" placeholder="radio:سؤال؟:خيار1|خيار2|...:الصحيح\ncheckbox:سؤال؟:خ1|خ2:خ1&خ2"></textarea></label>
         <button class="btn">إضافة</button>
       </form>
     </div>
@@ -68,16 +73,31 @@ export default function Admin(){
     import { createComp, comps, submissions, scores } from '../data.js';
     import { downloadFile } from '../utils.js';
 
+    function parseForm(str){
+      // line format: type:question:opt1|opt2|...:correct
+      // checkbox correct uses &: correct1&correct2
+      const out = [];
+      (str||'').split('\n').map(s=>s.trim()).filter(Boolean).forEach(line=>{
+        const [type,title,opts,correct] = line.split(':');
+        const options = (opts||'').split('|').filter(Boolean);
+        let corr = correct||'';
+        if(type==='checkbox'){ corr = corr.split('&').filter(Boolean); }
+        return out.push({ id: Math.random().toString(36).slice(2), type, title, options, correct: corr });
+      });
+      return out;
+    }
+
     document.getElementById('newComp').addEventListener('submit', (e)=>{
       e.preventDefault();
       const fd = new FormData(e.currentTarget);
-      const rubricStr = fd.get('rubric') || '';
-      const rubric = rubricStr.split(',').filter(Boolean).map(x=>{
-        const [k,w] = x.split(':'); return {k:k?.trim(), w:Number(w)};
-      });
+      const rubric = (fd.get('rubric')||'').split(',').filter(Boolean).map(x=>{ const [k,w]=x.split(':'); return {k:k?.trim(), w:Number(w)}; });
+      const stickers = (fd.get('stickers')||'').split(',').map(s=>s.trim()).filter(Boolean);
+      const form = parseForm(fd.get('form'));
       createComp({
         title: fd.get('title'), org: fd.get('org'), category: fd.get('category'),
-        status: fd.get('status'), deadline: fd.get('deadline'), brief: fd.get('brief'), rubric
+        status: fd.get('status'), deadline: fd.get('deadline'), brief: fd.get('brief'),
+        requiresCode: fd.get('requiresCode')==='true', code: fd.get('code')||'',
+        videoUrl: fd.get('videoUrl')||'', stickers, rubric, form
       });
       alert('تمت الإضافة'); location.reload();
     });
@@ -89,16 +109,14 @@ export default function Admin(){
 
     document.getElementById('exportCsv').addEventListener('click', ()=>{
       const rows = comps();
-      const csv = toCSV(rows, ['id','title','org','category','status','deadline','brief']);
+      const csv = toCSV(rows, ['id','title','org','category','status','deadline','brief','requiresCode','videoUrl']);
       downloadFile('competitions.csv', csv);
     });
-
     document.getElementById('exportSubs').addEventListener('click', ()=>{
       const rows = submissions();
       const csv = toCSV(rows, ['id','compId','author','title','summary','link','at']);
       downloadFile('submissions.csv', csv);
     });
-
     document.getElementById('exportScores').addEventListener('click', ()=>{
       const rows = scores();
       const csv = toCSV(rows.flatMap(r => r.scores.map(s => ({

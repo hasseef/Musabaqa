@@ -1,15 +1,7 @@
 
 const routes = new Map();
-
-export function route(path, loader){
-  routes.set(path, loader);
-}
-
-export function startRouter(){
-  window.addEventListener("hashchange", render);
-  document.addEventListener("DOMContentLoaded", render);
-}
-
+export function route(path, loader){ routes.set(path, loader); }
+export function startRouter(){ window.addEventListener("hashchange", render); document.addEventListener("DOMContentLoaded", render); }
 export async function render(){
   const outlet = document.getElementById("app");
   const path = location.hash.replace(/^#/, '') || '/';
@@ -21,7 +13,17 @@ export async function render(){
     const html = await loader(rest);
     outlet.innerHTML = html;
     outlet.focus({ preventScroll: false });
+    updateBN();
   }catch(err){
     outlet.innerHTML = `<div class="card"><h3>خطأ</h3><p class="muted">${err.message}</p></div>`;
   }
+}
+export function updateBN(){
+  const h = location.hash;
+  const ids = ['bn-home','bn-comps','bn-dash','bn-prof'];
+  ids.forEach(id=> document.getElementById(id)?.classList.remove('active'));
+  if(h.startsWith('#/competitions')) document.getElementById('bn-comps')?.classList.add('active');
+  else if(h.startsWith('#/dashboard')) document.getElementById('bn-dash')?.classList.add('active');
+  else if(h.startsWith('#/profile')) document.getElementById('bn-prof')?.classList.add('active');
+  else document.getElementById('bn-home')?.classList.add('active');
 }

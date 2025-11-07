@@ -1,29 +1,16 @@
 
-import { storage, bus } from './state.js';
+import { storage } from './state.js';
 
 const AUTH_KEY = "musabaqa_auth";
 const USERS_KEY = "musabaqa_users";
+const DEMO_CREDS = { user:'admin', pass:'M1234' };
 
 export function getAuth(){ return storage.read(AUTH_KEY); }
-export function onAuth(cb){ addEventListener("authchange", e => cb(e.detail)); }
-
-export function setAuth(user){
-  storage.write(AUTH_KEY, user);
-  dispatchEvent(new CustomEvent("authchange", { detail: user }));
-}
-
-export function clearAuth(){
-  storage.del(AUTH_KEY);
-  dispatchEvent(new CustomEvent("authchange", { detail: null }));
-}
-
+export function setAuth(user){ storage.write(AUTH_KEY, user); dispatchEvent(new CustomEvent("authchange", { detail: user })); }
+export function clearAuth(){ storage.del(AUTH_KEY); dispatchEvent(new CustomEvent("authchange", { detail: null })); }
 export function users(){ return storage.read(USERS_KEY, {}); }
 export function saveUsers(u){ storage.write(USERS_KEY, u); }
-
-export function requireRole(role){
-  const u = getAuth();
-  if(!u || (role && u.role !== role)) throw new Error("UNAUTHORIZED");
-}
+export function labelRole(r){ return r==='participant'?'مشارك':r==='judge'?'محكّم':'مدير'; }
 
 export function initAuthUI(){
   const authBtn = document.getElementById("authBtn");
@@ -47,8 +34,8 @@ export function initAuthUI(){
       authBtn.onclick = () => { if(confirm("تسجيل الخروج؟")) clearAuth(); };
       roleNav.hidden = false;
       roleInfo.textContent = `الدور: ${labelRole(u.role)}`;
-      judgeTab.hidden = u.role !== "judge" && u.role !== "admin";
-      adminTab.hidden = u.role !== "admin";
+      judgeTab.hidden = u.role!=='judge' && u.role!=='admin';
+      adminTab.hidden = u.role!=='admin';
     }else{
       authBtn.textContent = "دخول / تسجيل";
       authBtn.classList.add("btn--ghost");
@@ -56,9 +43,17 @@ export function initAuthUI(){
       roleNav.hidden = true;
     }
   }
-
   updateButtons(getAuth());
   addEventListener("authchange", (e)=> updateButtons(e.detail));
+
+  // Quick login buttons
+  document.getElementById('quickLogins')?.addEventListener('click', (e)=>{
+    const btn = e.target.closest('button[data-role]'); if(!btn) return;
+    const r = btn.dataset.role;
+    email.value = DEMO_CREDS.user;
+    password.value = DEMO_CREDS.pass;
+    role.value = r;
+  });
 
   toggle?.addEventListener("click", (ev) => {
     ev.preventDefault();
@@ -71,22 +66,31 @@ export function initAuthUI(){
     ev.preventDefault();
     if(!email.checkValidity() || !password.checkValidity()) return;
     const all = users();
+
+    // Demo universal login
+    if(!isNew.checked && (email.value===DEMO_CREDS.user || email.value==='admin@demo') && password.value===DEMO_CREDS.pass){
+      setAuth({ email: 'admin@demo', role: role.value });
+      modal.close(); alert('مرحبًا بك — دخول تجريبي');
+      const dest = role.value==='admin' ? '#/admin' : role.value==='judge' ? '#/judge' : '#/dashboard';
+      location.hash = dest; return;
+    }
+
     if(isNew.checked){
-      if(all[email.value]) return alert("البريد مستخدم مسبقًا");
+      if(all[email.value]) return alert("الاسم مستخدم مسبقًا");
       all[email.value] = { email: email.value, password: password.value, role: role.value, createdAt: Date.now() };
       saveUsers(all);
       setAuth({ email: email.value, role: role.value });
       modal.close(); alert("تم إنشاء الحساب بنجاح");
+      const dest = role.value==='admin' ? '#/admin' : role.value==='judge' ? '#/judge' : '#/dashboard';
+      location.hash = dest;
     }else{
       if(!all[email.value] || all[email.value].password !== password.value) return alert("بيانات غير صحيحة");
       setAuth({ email: email.value, role: all[email.value].role });
       modal.close(); alert("مرحبًا بعودتك");
+      const dest = all[email.value].role==='admin' ? '#/admin' : all[email.value].role==='judge' ? '#/judge' : '#/dashboard';
+      location.hash = dest;
     }
   });
 
   document.querySelector(".modal__close")?.addEventListener("click", ()=> modal.close());
-}
-
-export function labelRole(r){
-  return r==="participant" ? "مشارك" : r==="judge" ? "محكّم" : "مدير";
 }

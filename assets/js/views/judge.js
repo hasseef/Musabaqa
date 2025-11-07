@@ -1,10 +1,10 @@
 
-import { getAuth, requireRole } from '../auth.js';
-import { submissions, comps, upsertScore, scores } from '../data.js';
+import { getAuth } from '../auth.js';
+import { submissions, comps, upsertScore } from '../data.js';
 
 export default function Judge(){
-  try{ requireRole(); }catch{ return '<div class="card"><p>فضلاً سجّل الدخول للوصول إلى منطقة التحكيم.</p></div>'; }
   const u = getAuth();
+  if(!u) return '<div class="card"><p>فضلاً سجّل الدخول للوصول إلى منطقة التحكيم.</p></div>';
   if(u.role!=='judge' && u.role!=='admin') return '<div class="card"><p>هذه المنطقة للمحكّمين فقط.</p></div>';
   const list = submissions();
   if(!list.length) return '<div class="card"><p>لا توجد مشاركات للتحكيم حالياً.</p></div>';
@@ -33,11 +33,10 @@ export default function Judge(){
     const forms = document.querySelectorAll('.scoreForm');
     forms.forEach(f => f.addEventListener('submit', (e)=>{
       e.preventDefault();
-      const fd = new FormData(f);
       const submId = f.dataset.subm;
       const compId = f.dataset.comp;
       const rows = [...f.querySelectorAll('input[type=number]')].map(i=>({k:i.id.split('-').slice(1).join('-'), v:Number(i.value||0)}));
-      upsertScore({ compId, submId, judge: "${u.email}", scores: rows });
+      upsertScore({ compId, submId, judge: "${'${getAuth()?.email || "judge@demo"}'}", scores: rows });
       alert('تم حفظ التقييم');
     }));
   </script>`;

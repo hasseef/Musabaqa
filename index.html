@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>منصة مسابقة — الإصدار الاحترافي</title>
-  <meta name="description" content="منصة احترافية لإطلاق وإدارة المسابقات، التحكيم، والتتويج.">
+  <title>منصة مسابقة — إصدار الجوال الاحترافي</title>
+  <meta name="description" content="إطلاق وإدارة مسابقات باحترافية — يدعم التحكيم، وسائط، ملصقات، وأسئلة باختيار الإجابة الصحيحة.">
   <meta name="theme-color" content="#0b7a6e">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="assets/images/favicon.png">
@@ -48,9 +48,7 @@
   </aside>
 
   <main id="app" class="app container" tabindex="-1" aria-live="polite">
-    <!-- صفحات الواجهة يتم حقنها ديناميكيًا هنا -->
     <noscript>المنصة تتطلب تفعيل JavaScript.</noscript>
-  
   </main>
 
   <nav class="bottom-nav" aria-label="التنقل السفلي">
@@ -61,7 +59,6 @@
       <a data-link href="#/profile" id="bn-prof">👤<small>ملفي</small></a>
     </div>
   </nav>
-
 
   <footer class="footer">
     <div class="container footer__inner">
@@ -81,17 +78,17 @@
   <dialog id="authModal" class="modal">
     <form method="dialog" class="modal__content" id="authForm">
       <button class="modal__close" value="close" aria-label="إغلاق">×</button>
-      <h3 id="authTitle">إنشاء حساب</h3>
+      <h3 id="authTitle">تسجيل الدخول</h3>
 
-      <label>البريد الإلكتروني
-        <input type="email" id="email" placeholder="name@example.com" required autocomplete="username">
+      <label>اسم المستخدم
+        <input type="text" id="email" placeholder="admin" required autocomplete="username">
       </label>
 
       <label>كلمة المرور
-        <input type="password" id="password" minlength="6" placeholder="******" required autocomplete="current-password">
+        <input type="password" id="password" minlength="4" placeholder="M1234" required autocomplete="current-password">
       </label>
 
-      <label>الدور (يؤثر على الواجهة)
+      <label>نوع الحساب (يحدد الواجهة بعد الدخول)
         <select id="role">
           <option value="participant">مشارك</option>
           <option value="judge">محكّم</option>
@@ -99,16 +96,22 @@
         </select>
       </label>
 
+      <div class="row" id="quickLogins">
+        <button type="button" class="btn btn--light" data-role="participant">دخول سريع (مشارك)</button>
+        <button type="button" class="btn btn--light" data-role="judge">دخول سريع (محكّم)</button>
+        <button type="button" class="btn btn--light" data-role="admin">دخول سريع (مدير)</button>
+      </div>
+
       <div class="row">
         <label class="checkbox">
-          <input type="checkbox" id="isNew" checked>
-          <span>حساب جديد</span>
+          <input type="checkbox" id="isNew">
+          <span>إنشاء حساب جديد</span>
         </label>
         <a href="#" id="toggleAuth" class="link">لدي حساب</a>
       </div>
 
       <button class="btn" id="submitAuth">متابعة</button>
-      <p class="note">* لأغراض العرض فقط: يتم الحفظ محليًا في المتصفح.</p>
+      <p class="note">* دخول تجريبي: اسم المستخدم <strong>admin</strong>، كلمة المرور <strong>M1234</strong>.</p>
     </form>
   </dialog>
 </body>

@@ -1,5 +1,1 @@
-
-export default function Privacy(){
-  return `<div class="card"><h2>سياسة الخصوصية (نموذجية)</h2>
-  <p>هذا نموذج للعرض — عند ربط المنصة بباك-إند حقيقي، يجب تضمين سياسة خصوصية ملائمة للأنظمة المحلية.</p></div>`;
-}
+export default function Privacy(){ return `<div class='card'><h2>سياسة الخصوصية (نموذجية)</h2></div>`; }

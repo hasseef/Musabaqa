@@ -9,6 +9,7 @@ export default function Competitions(){
       <h3>${c.title}</h3>
       <p class="muted">${c.org} • ${c.category}</p>
       <p>${c.brief}</p>
+      <p class="muted">${c.videoUrl? '🎬 فيديو تعريفي • ' : ''}${(c.stickers?.length||0)>0? '🎟️ ملصقات مرفقة' : ''}</p>
       <div class="row" style="margin-top:8px">
         <span class="badge badge--${c.status}">${c.status==='open'?'مفتوحة':c.status==='soon'?'قريباً':'مغلقة'}</span>
         <div class="row">

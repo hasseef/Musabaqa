@@ -1,5 +1,5 @@
 
-const CACHE = "musabaqa-pro-v1";
+const CACHE = "musabaqa-pro-v2";
 const ASSETS = [
   "./",
   "./index.html",

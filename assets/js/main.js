@@ -1,6 +1,6 @@
 
 import { initAuthUI } from './auth.js';
-import { route, startRouter } from './router.js';
+import { route, startRouter, updateBN } from './router.js';
 
 import Home from './views/home.js';
 import Competitions from './views/competitions.js';
@@ -71,17 +71,4 @@ route('/terms', Terms);
 route('*', Home);
 
 startRouter();
-
-// Bottom nav active state
-function updateBN(){
-  const h = location.hash;
-  const ids = ['bn-home','bn-comps','bn-dash','bn-prof'];
-  ids.forEach(id=> document.getElementById(id)?.classList.remove('active'));
-  if(h.startsWith('#/competitions')) document.getElementById('bn-comps')?.classList.add('active');
-  else if(h.startsWith('#/dashboard')) document.getElementById('bn-dash')?.classList.add('active');
-  else if(h.startsWith('#/profile')) document.getElementById('bn-prof')?.classList.add('active');
-  else document.getElementById('bn-home')?.classList.add('active');
-}
-window.addEventListener('hashchange', updateBN);
-document.addEventListener('DOMContentLoaded', updateBN);
-
+updateBN();
