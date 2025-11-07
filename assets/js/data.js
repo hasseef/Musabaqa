@@ -15,3 +15,23 @@ export const createSubmission=p=>{const arr=submissions(); arr.push({id:uid(),at
 export const markWinner=(submId,isWinner=true)=>{const arr=submissions(); const i=arr.findIndex(s=>s.id===submId); if(i>-1){arr[i].winner=isWinner; saveSubmissions(arr)}};
 export const createPrizeClaim=p=>{const arr=prizeClaims(); arr.push({id:uid(),status:'pending',createdAt:Date.now(),...p}); savePrizeClaims(arr)};
 export const updatePrizeStatus=(id,status)=>{const arr=prizeClaims(); const i=arr.findIndex(x=>x.id===id); if(i>-1){arr[i].status=status; arr[i].updatedAt=Date.now(); savePrizeClaims(arr)}};
+
+
+// --- Wallet & Billing ---
+const WALLET_KEY='musabaqa_wallet';
+export const wallet=()=>storage.read(WALLET_KEY,{balance:0,invoices:[]});
+export const saveWallet=w=>storage.write(WALLET_KEY,w);
+export function createInvoice(payload){
+  const w=wallet();
+  w.invoices.push({ id: uid(), status:'unpaid', createdAt: Date.now(), ...payload });
+  saveWallet(w);
+}
+export function markInvoicePaid(id){
+  const w=wallet(); const i=w.invoices.findIndex(x=>x.id===id);
+  if(i>-1){ w.invoices[i].status='paid'; w.invoices[i].paidAt=Date.now(); w.balance+=Number(w.invoices[i].amount||0); saveWallet(w); }
+}
+
+// --- Media Stories for featured comps (client-only demo) ---
+export function featuredStories(){
+  return comps().filter(c=>c.featured).map(c=>({ id: c.id, title: c.title, slides:[ {type:'cover', text:c.title}, {type:'text', text:c.brief}, {type:'cta', text:'قدّم الآن', href:'#/submit/'+c.id} ] }));
+}
