@@ -1,1 +1,0 @@
-export default function Judge(){ return `<div class='card'><p>منطقة التحكيم (نموذجية).</p></div>`; }

@@ -1,1 +1,0 @@
-export default function Prizes(){ return `<div class='card'><p>استلام الجوائز — نموذج.</p></div>`;}

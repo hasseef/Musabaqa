@@ -1,1 +1,0 @@
-export default function MediaHub(){ return `<div class='card'><h2>المركز الإعلامي</h2><p>قصص للمسابقات الوطنية.</p></div>`; }

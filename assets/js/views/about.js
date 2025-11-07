@@ -1,1 +1,0 @@
-export default function About(){return `<section class='grid'><div class='card'><h2>عن المنصة</h2><p>هذه النسخة مضبوطة لمسار GitHub Pages: /Musabaqa/ مع PWA وكسر كاش تلقائي.</p></div></section>`;}
