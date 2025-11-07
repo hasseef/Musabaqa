@@ -1,12 +1,13 @@
+
 import { wallet, createInvoice, markInvoicePaid } from '../data.js';
 import { fmtDate } from '../utils.js';
 export default function Wallet(){
   const w = wallet();
   const rows = (w.invoices||[]).map(inv => `<tr>
-      <td>${inv.id.slice(0,6)}</td><td>${inv.title||'-'}</td><td>${inv.amount||0}</td>
+      <td>${inv.id.slice(0,6)}</td><td>${inv.type||'-'}</td><td>${inv.compId||'-'}</td><td>${inv.title||'-'}</td><td>${inv.amount||0}</td>
       <td>${inv.status}</td><td>${fmtDate(inv.createdAt)}</td>
       <td>${inv.status==='unpaid'?`<button class='btn btn--light' data-pay='${inv.id}'>وضع كمدفوع</button>`:''}</td>
-    </tr>`).join('') || `<tr><td colspan='6' class='muted'>لا توجد فواتير.</td></tr>`;
+    </tr>`).join('') || `<tr><td colspan='8' class='muted'>لا توجد فواتير.</td></tr>`;
   return `<section class='grid'>
     <div class='card'>
       <h2>المحفظة والفواتير</h2>
@@ -16,7 +17,7 @@ export default function Wallet(){
         <label>المبلغ (ريال)<input class='input' name='amount' type='number' min='1' required></label>
         <button class='btn'>إنشاء فاتورة</button>
       </form>
-      <table class='table'><thead><tr><th>#</th><th>العنوان</th><th>المبلغ</th><th>الحالة</th><th>التاريخ</th><th>إجراء</th></tr></thead><tbody>${rows}</tbody></table>
+      <table class='table'><thead><tr><th>#</th><th>النوع</th><th>المسابقة</th><th>العنوان</th><th>المبلغ</th><th>الحالة</th><th>التاريخ</th><th>إجراء</th></tr></thead><tbody>${rows}</tbody></table>
     </div>
   </section>
   <script type='module'>

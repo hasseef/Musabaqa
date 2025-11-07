@@ -1,3 +1,4 @@
+
 import { featuredStories } from '../data.js';
 export default function MediaHub(){
   const list = featuredStories();

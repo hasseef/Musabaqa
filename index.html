@@ -2,8 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>منصة مسابقة — الإصدار النهائي</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+  <title>منصة مسابقة — نسخة احترافية</title>
   <meta name="theme-color" content="#0b7a6e">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="assets/images/favicon.png">
@@ -12,13 +12,14 @@
   <script defer type="module" src="assets/js/main.js"></script>
 </head>
 <body>
+  <a class="skip" href="#app">تجاوز إلى المحتوى</a>
   <header class="header">
     <div class="container header__inner">
       <div class="brand">
-        <img src="assets/images/logo-musabaqa.svg" alt="شعار مسابقة" class="brand__logo">
+        <img src="assets/images/logo-musabaqa.svg" alt="شعار مسابقة" class="brand__logo" height="40" width="220">
         <div class="brand__stack">
-          <img src="assets/images/logo-vision.svg" alt="شعار رؤية 2030" class="brand__badge">
-          <img src="assets/images/logo-talabia.svg" alt="شعار تلبية" class="brand__badge">
+          <img src="assets/images/logo-vision.svg" alt="شعار رؤية 2030" class="brand__badge" height="30" width="120">
+          <img src="assets/images/logo-talabia.svg" alt="شعار تلبية" class="brand__badge" height="30" width="120">
         </div>
       </div>
       <nav class="nav" aria-label="روابط رئيسية">
@@ -44,6 +45,7 @@
         <a data-link href="#/media" id="mediaTab" hidden>المركز الإعلامي</a>
         <a data-link href="#/wallet" id="walletTab" hidden>المحفظة والفواتير</a>
         <a data-link href="#/sponsor" id="sponsorTab" hidden>مركز الرعاة</a>
+        <a data-link href="#/sponsor-market" id="marketTab" hidden>سوق الرعايات</a>
         <a data-link href="#/profile">ملفي</a>
       </nav>
       <div class="subnav__info" id="roleInfo"></div>
@@ -66,8 +68,8 @@
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
-        <img src="assets/images/logo-musabaqa.svg" alt="شعار مسابقة" class="brand__logo">
-        <p>© <span id="year"></span> مسابقة — إصدار نهائي</p>
+        <img src="assets/images/logo-musabaqa.svg" alt="شعار مسابقة" class="brand__logo" height="40" width="220">
+        <p>© <span id="year"></span> مسابقة — نسخة احترافية</p>
       </div>
       <div class="footer__links">
         <a href="#/privacy" data-link>الخصوصية</a>

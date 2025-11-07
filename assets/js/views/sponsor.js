@@ -1,3 +1,4 @@
+
 export default function SponsorCenter(){
   return `<section class='grid'>
     <div class='card'>
